@@ -1,0 +1,25 @@
+:root {
+  --orange: #F75C03;
+  --ink: #011627;
+  --burgundy: #74121D;
+  --linen: #FFEDDF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
