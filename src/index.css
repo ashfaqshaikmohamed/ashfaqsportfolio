@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:wght@300;400;500&display=swap');
+
 :root {
-  --orange: #F75C03;
-  --ink: #011627;
-  --burgundy: #74121D;
-  --linen: #FFEDDF;
+  --cream: #F8F5F0;
+  --ink: #0A0908;
+  --gold: #B8974A;
+  --warm-mid: #6B5E52;
+  --glass: rgba(248,245,240,0.7);
 }
 
 * {
@@ -13,13 +16,28 @@
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background: var(--ink);
+  background: var(--cream);
   overflow: hidden;
   height: 100vh;
   width: 100vw;
+  cursor: none;
 }
 
 #root {
   height: 100vh;
   width: 100vw;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(184,151,74,0.3); border-radius: 10px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
