@@ -75,52 +75,60 @@ export default function App() {
       {/* NAV */}
       <nav style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '12px 48px',
-        background: 'rgba(248,245,240,0.92)', backdropFilter: 'blur(14px)',
+        display: 'grid',
+        gridTemplateColumns: 'auto 1fr auto',
+        alignItems: 'center',
+        gap: '0',
+        padding: '0 48px',
+        height: '64px',
+        background: 'rgba(248,245,240,0.95)',
+        backdropFilter: 'blur(14px)',
         borderBottom: '1px solid rgba(10,9,8,0.07)',
       }}>
-        {/* Name — large serif, the real brand mark */}
+        {/* Name — large Times New Roman, left column */}
         <span style={{
           fontFamily: '"Times New Roman", Times, serif',
-          fontSize: '32px',
+          fontSize: '36px',
           fontWeight: 400,
           color: '#0A0908',
-          letterSpacing: '-0.5px',
+          letterSpacing: '-1px',
           lineHeight: 1,
           userSelect: 'none',
+          display: 'block',
         }}>
           ashfaq
         </span>
 
-        {/* Nav tabs — center */}
-        <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+        {/* Nav tabs — center column */}
+        <div style={{ display: 'flex', gap: '32px', alignItems: 'center', justifyContent: 'center' }}>
           {(['home','projects','playground','arcade'] as Tab[]).map(t => (
             <button key={t} {...hov}
               onClick={() => { setTab(t); if (t === 'arcade') setGame('menu'); }}
               style={{
                 background: 'none', border: 'none', cursor: 'none',
-                fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 500,
+                fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500,
                 letterSpacing: '2.5px', textTransform: 'uppercase',
-                color: tab === t ? 'var(--ink)' : 'var(--warm-mid)',
-                borderBottom: tab === t ? '1px solid var(--ink)' : '1px solid transparent',
+                color: tab === t ? '#0A0908' : '#6B5E52',
+                borderBottom: tab === t ? '1px solid #0A0908' : '1px solid transparent',
                 paddingBottom: '2px', transition: 'all 0.2s',
+                lineHeight: 1,
               }}>
               {t === 'playground' ? 'play' : t}
             </button>
           ))}
         </div>
-        {/* Social icons */}
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+
+        {/* Social icons — right column */}
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'flex-end' }}>
           {[
             { href: 'https://github.com/ashfaqshaikmohamed', title: 'GitHub', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> },
             { href: 'https://www.linkedin.com/in/ashfaqece/', title: 'LinkedIn', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
-            { href: 'mailto:ashad.shaikmohamed@rutgers.edu', title: 'Email', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
+            { href: 'mailto:ashfaq.shaikmohamed@rutgers.edu', title: 'Email', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
           ].map(({ href, title, svg }) => (
             <a key={title} href={href} target={href.startsWith('mailto') ? undefined : '_blank'} title={title} {...hov}
-              style={{ color: 'var(--warm-mid)', display: 'flex', transition: 'color 0.18s' }}
-              onMouseOver={e=>(e.currentTarget.style.color='var(--ink)')}
-              onMouseOut={e=>(e.currentTarget.style.color='var(--warm-mid)')}>
+              style={{ color: '#6B5E52', display: 'flex', transition: 'color 0.18s' }}
+              onMouseOver={e => (e.currentTarget.style.color = '#0A0908')}
+              onMouseOut={e => (e.currentTarget.style.color = '#6B5E52')}>
               {svg}
             </a>
           ))}
@@ -130,22 +138,21 @@ export default function App() {
       {/* HOME */}
       {tab === 'home' && (
         <div>
-          {/* HERO — video only, full viewport, no competing name element */}
+          {/* HERO — video fills viewport, floaty labels on sides */}
           <div style={{
             height: '100vh',
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
-            paddingTop: '56px', /* nav height offset */
+            paddingTop: '64px',
           }}>
 
             {/* Video — large and centered */}
             <div style={{
-              width: '82vw',
-              maxWidth: '1100px',
-              minWidth: '520px',
+              width: '80vw',
+              maxWidth: '1080px',
+              minWidth: '500px',
               position: 'relative',
               zIndex: 1,
             }}>
@@ -156,7 +163,7 @@ export default function App() {
               </video>
             </div>
 
-            {/* Left floating info */}
+            {/* Left floating labels */}
             <div style={{
               position: 'absolute', left: '4%', top: '50%', transform: 'translateY(-50%)',
               display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3,
@@ -165,12 +172,12 @@ export default function App() {
                 <span key={tag} style={{
                   fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
                   letterSpacing: '1.8px', textTransform: 'uppercase',
-                  color: 'rgba(10,9,8,0.35)', whiteSpace: 'nowrap', display: 'block',
+                  color: 'rgba(10,9,8,0.38)', whiteSpace: 'nowrap', display: 'block',
                 }}>{tag}</span>
               ))}
             </div>
 
-            {/* Right floating interests */}
+            {/* Right floating labels */}
             <div style={{
               position: 'absolute', right: '4%', top: '50%', transform: 'translateY(-50%)',
               display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3, alignItems: 'flex-end',
@@ -179,7 +186,7 @@ export default function App() {
                 <span key={tag} style={{
                   fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
                   letterSpacing: '1.8px', textTransform: 'uppercase',
-                  color: 'rgba(10,9,8,0.25)', whiteSpace: 'nowrap', display: 'block',
+                  color: 'rgba(10,9,8,0.28)', whiteSpace: 'nowrap', display: 'block',
                 }}>{tag}</span>
               ))}
             </div>
@@ -195,52 +202,76 @@ export default function App() {
           </div>
 
           {/* ABOUT ME */}
-          <div style={{ maxWidth: '820px', margin: '0 auto', padding: '96px 48px 0' }}>
-            <div style={{ borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '64px' }}>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '40px' }}>About</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: '80px', alignItems: 'start' }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto', padding: '100px 48px 0' }}>
+            <div style={{ borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '72px' }}>
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif", fontSize: '9px',
+                letterSpacing: '2.5px', textTransform: 'uppercase',
+                color: '#6B5E52', marginBottom: '48px',
+              }}>About</p>
 
-                {/* Bio */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '80px', alignItems: 'start' }}>
+
+                {/* Left: bio */}
                 <div>
-                  <p style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '19px', color: 'var(--ink)', lineHeight: 1.85, marginBottom: '22px' }}>
-                    Double majoring in ECE and Mathematics at Rutgers — New Brunswick. I like building things that actually push me, and working on problems where the answer isn't obvious from the start.
+                  <p style={{
+                    fontFamily: '"Times New Roman", Times, serif',
+                    fontSize: '20px', color: '#0A0908', lineHeight: 1.8, marginBottom: '24px',
+                  }}>
+                    Double majoring in ECE and Math at Rutgers — New Brunswick. I like working on problems that don't have obvious solutions and building things that actually push me.
                   </p>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.52)', lineHeight: 1.9, marginBottom: '28px' }}>
-                    My work sits across full-stack, machine learning, and infrastructure. Not because I can't pick — because the interesting problems usually touch all three. If something catches your eye, reach out:
+                  <p style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '14px', color: 'rgba(10,9,8,0.5)', lineHeight: 1.9, marginBottom: '32px',
+                  }}>
+                    My interests run across full-stack, machine learning, and infrastructure — wherever there's something hard worth figuring out. Feel free to explore and reach out if anything catches your eye.
                   </p>
-                  <a href="mailto:ashfaq.shaikmohamed@rutgers.edu"
-                    style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', letterSpacing: '0.5px', color: 'var(--ink)', textDecoration: 'none', borderBottom: '1px solid rgba(10,9,8,0.3)', paddingBottom: '2px', transition: 'border-color 0.2s' }}
-                    onMouseOver={e => (e.currentTarget.style.borderColor = 'var(--ink)')}
-                    onMouseOut={e => (e.currentTarget.style.borderColor = 'rgba(10,9,8,0.3)')}>
+                  <a href="mailto:ashfaq.shaikmohamed@rutgers.edu" style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '12px', color: '#0A0908', textDecoration: 'none',
+                    borderBottom: '1px solid rgba(10,9,8,0.25)', paddingBottom: '2px',
+                    transition: 'border-color 0.2s',
+                  }}
+                    onMouseOver={e => (e.currentTarget.style.borderColor = '#0A0908')}
+                    onMouseOut={e => (e.currentTarget.style.borderColor = 'rgba(10,9,8,0.25)')}>
                     ashfaq.shaikmohamed@rutgers.edu
                   </a>
                 </div>
 
-                {/* Details + Stack */}
+                {/* Right: metadata + stack */}
                 <div>
-                  <div style={{ marginBottom: '36px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '40px' }}>
                     {[
                       { label: 'Degree', value: 'B.Eng ECE & Mathematics' },
                       { label: 'School', value: 'Rutgers University' },
-                      { label: 'Class', value: '2028' },
-                      { label: 'Focus', value: 'Full-Stack · ML · Infra' },
+                      { label: 'Class',  value: '2028' },
+                      { label: 'Focus',  value: 'Full-Stack · ML · Infra' },
                     ].map(item => (
                       <div key={item.label} style={{ display: 'flex', gap: '20px', alignItems: 'baseline' }}>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.28)', minWidth: '52px' }}>{item.label}</span>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.5 }}>{item.value}</span>
+                        <span style={{
+                          fontFamily: "'DM Sans', sans-serif", fontSize: '8px',
+                          letterSpacing: '1.5px', textTransform: 'uppercase',
+                          color: 'rgba(10,9,8,0.3)', minWidth: '52px', flexShrink: 0,
+                        }}>{item.label}</span>
+                        <span style={{
+                          fontFamily: "'DM Sans', sans-serif", fontSize: '12px',
+                          color: 'rgba(10,9,8,0.62)', lineHeight: 1.5,
+                        }}>{item.value}</span>
                       </div>
                     ))}
                   </div>
 
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.28)', marginBottom: '14px' }}>Stack</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    {stack.map((s) => (
+                  <p style={{
+                    fontFamily: "'DM Sans', sans-serif", fontSize: '8px',
+                    letterSpacing: '2px', textTransform: 'uppercase',
+                    color: 'rgba(10,9,8,0.3)', marginBottom: '16px',
+                  }}>Stack</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    {stack.map(s => (
                       <span key={s} style={{
                         fontFamily: '"Times New Roman", Times, serif',
-                        fontStyle: 'italic',
-                        fontSize: '16px',
-                        color: 'rgba(10,9,8,0.7)',
-                        lineHeight: 1.4,
+                        fontStyle: 'italic', fontSize: '17px',
+                        color: 'rgba(10,9,8,0.68)', lineHeight: 1.45,
                       }}>{s}</span>
                     ))}
                   </div>
@@ -251,7 +282,7 @@ export default function App() {
           </div>
 
           {/* STATS */}
-          <div style={{ maxWidth: '820px', margin: '0 auto', padding: '64px 48px 0' }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto', padding: '64px 48px 0' }}>
             <div style={{
               display: 'grid', gridTemplateColumns: 'repeat(4,1fr)',
               borderTop: '1px solid rgba(10,9,8,0.08)', borderBottom: '1px solid rgba(10,9,8,0.08)',
@@ -260,25 +291,25 @@ export default function App() {
               {[
                 { n: '50K+', l: 'Records ingested' },
                 { n: '2028', l: 'Graduating' },
-                { n: '2', l: 'Live products' },
-                { n: '∞', l: 'Problems left' },
+                { n: '2',    l: 'Live products' },
+                { n: '∞',   l: 'Problems left' },
               ].map(s => (
                 <div key={s.l} style={{ textAlign: 'center' }}>
-                  <div style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '32px', color: 'var(--ink)', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
-                  <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginTop: '8px' }}>{s.l}</div>
+                  <div style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '32px', color: '#0A0908', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '8px' }}>{s.l}</div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* PROJECT PREVIEW CARDS */}
-          <div style={{ maxWidth: '820px', margin: '0 auto', padding: '64px 48px 0' }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto', padding: '64px 48px 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '32px' }}>
-              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)' }}>Recent Work</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52' }}>Recent Work</p>
               <button {...hov} onClick={() => setTab('projects')}
-                style={{ background: 'none', border: 'none', cursor: 'none', fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', borderBottom: '1px solid var(--warm-mid)', paddingBottom: '1px', transition: 'color 0.2s' }}
-                onMouseOver={e=>(e.currentTarget.style.color='var(--ink)')}
-                onMouseOut={e=>(e.currentTarget.style.color='var(--warm-mid)')}>
+                style={{ background: 'none', border: 'none', cursor: 'none', fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', borderBottom: '1px solid #6B5E52', paddingBottom: '1px', transition: 'color 0.2s' }}
+                onMouseOver={e => (e.currentTarget.style.color = '#0A0908')}
+                onMouseOut={e => (e.currentTarget.style.color = '#6B5E52')}>
                 see all →
               </button>
             </div>
@@ -291,14 +322,14 @@ export default function App() {
                     border: '1px solid rgba(10,9,8,0.08)', padding: '28px 24px',
                     transition: 'border-color 0.2s, transform 0.2s',
                   }}
-                    onMouseOver={e=>{(e.currentTarget as HTMLElement).style.borderColor='var(--ink)';(e.currentTarget as HTMLElement).style.transform='translateY(-2px)';}}
-                    onMouseOut={e=>{(e.currentTarget as HTMLElement).style.borderColor='rgba(10,9,8,0.08)';(e.currentTarget as HTMLElement).style.transform='none';}}>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '8px' }}>{p.year}</p>
-                    <h3 style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '22px', fontWeight: 400, color: 'var(--ink)', marginBottom: '8px' }}>{p.title}</h3>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.45)', lineHeight: 1.7, marginBottom: '16px' }}>{p.tagline}</p>
+                    onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = '#0A0908'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+                    onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(10,9,8,0.08)'; (e.currentTarget as HTMLElement).style.transform = 'none'; }}>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '8px' }}>{p.year}</p>
+                    <h3 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '22px', fontWeight: 400, color: '#0A0908', marginBottom: '8px' }}>{p.title}</h3>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.45)', lineHeight: 1.7, marginBottom: '16px' }}>{p.tagline}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                       {p.tags.slice(0,3).map(t => (
-                        <span key={t} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.35)', border: '1px solid rgba(10,9,8,0.12)', padding: '3px 8px' }}>{t}</span>
+                        <span key={t} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.35)', border: '1px solid rgba(10,9,8,0.12)', padding: '3px 8px' }}>{t}</span>
                       ))}
                     </div>
                   </div>
@@ -308,14 +339,14 @@ export default function App() {
           </div>
 
           {/* FOOTER */}
-          <div style={{ maxWidth: '820px', margin: '80px auto 0', padding: '32px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(10,9,8,0.06)' }}>
-            <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)' }}>Ashfaq Shaik-Mohamed · 2025</span>
-            <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.2)' }}>Jersey City, NJ</span>
+          <div style={{ maxWidth: '860px', margin: '80px auto 0', padding: '32px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(10,9,8,0.06)' }}>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>Ashfaq Shaik-Mohamed · 2025</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.2)' }}>Jersey City, NJ</span>
           </div>
         </div>
       )}
 
-      {/* PROJECTS */}
+            {/* PROJECTS */}
       {tab === 'projects' && (
         <div style={{ maxWidth: '820px', margin: '0 auto', padding: '140px 48px 80px' }}>
           <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '56px' }}>Selected Work</p>
