@@ -21,7 +21,7 @@ const projects = [
     color: '#2C3E2D',
   },
   {
-    title: 'Receipt',
+    title: 'Receiptify',
     tagline: 'Split bills. No drama.',
     desc: 'On-device OCR bill-splitter using Tesseract.js to parse itemized receipts directly in the browser — no server, no uploads, no accounts. Detects quantities, tip, and tax, then splits the check with one tap.',
     bullets: [
@@ -83,12 +83,14 @@ export default function App() {
         background: 'rgba(248,245,240,0.95)', backdropFilter: 'blur(14px)',
         borderBottom: '1px solid rgba(10,9,8,0.07)',
       }}>
-        {/* "a" — small serif logo mark */}
-        <span style={{
-          fontFamily: '"Times New Roman", Times, serif',
-          fontSize: '22px', fontWeight: 400, color: '#0A0908',
-          letterSpacing: '-0.5px', lineHeight: 1, userSelect: 'none',
-        }}>a</span>
+        {/* "a" — small serif logo mark, clicks home */}
+        <button onClick={() => setTab('home')} {...hov}
+          style={{
+            background: 'none', border: 'none', cursor: 'none',
+            fontFamily: '"Times New Roman", Times, serif',
+            fontSize: '22px', fontWeight: 400, color: '#0A0908',
+            letterSpacing: '-0.5px', lineHeight: 1, userSelect: 'none', padding: 0,
+          }}>a</button>
 
         {/* Nav tabs — center */}
         <div style={{ display: 'flex', gap: '32px', alignItems: 'center', justifyContent: 'center' }}>
@@ -134,7 +136,7 @@ export default function App() {
             paddingTop: '56px', /* nav height */
             display: 'flex', flexDirection: 'column',
             alignItems: 'center',
-            minHeight: '100vh',
+            minHeight: 'auto',
             position: 'relative',
           }}>
 
@@ -178,8 +180,8 @@ export default function App() {
               {/* Video */}
               <video ref={videoRef} autoPlay loop muted playsInline
                 style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply' }}>
-                <source src="/output2.mov" type="video/quicktime" />
-                <source src="/output2.mov" type="video/mp4" />
+                <source src="/background.webm" type="video/webm" />
+                <source src="/background.mp4" type="video/mp4" />
               </video>
 
               {/* Right floating labels */}
@@ -317,7 +319,7 @@ export default function App() {
                               <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '4px' }}>{s.l}</div>
                             </div>
                           ))}
-                          <div style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '15px', color: '#B8974A', marginTop: '8px' }}>visit →</div>
+                          <div style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '15px', color: '#B8974A', marginTop: '8px', textDecoration: 'underline' }}>visit site →</div>
                         </div>
                       </div>
                     </div>
@@ -391,11 +393,11 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
 
   // Ashfaq's actual answers are marked — used for match scoring
   const questions = [
-    { q: 'What year did Ashfaq start at Rutgers?', a: '2024', b: '2023', ans: 'b' },
+    { q: 'What year did Ashfaq start at Rutgers?', a: '2024', b: '2023', ans: 'a' },
     { q: 'Which of Ashfaq\'s majors came first?', a: 'Math', b: 'ECE', ans: 'b' },
     { q: 'What\'s Ashfaq\'s go-to language for backend work?', a: 'Python', b: 'Java', ans: 'a' },
     { q: 'CityPulse or Receipt — which shipped first?', a: 'CityPulse', b: 'Receipt', ans: 'b' },
-    { q: 'Does Ashfaq prefer building solo or with a team?', a: 'Solo', b: 'Team', ans: 'a' },
+    { q: 'Does Ashfaq prefer building solo or with a team?', a: 'Solo', b: 'Team', ans: 'b' },
     { q: 'What\'s the AI model powering CityPulse\'s image triage?', a: 'GPT-4V', b: 'Gemini Flash', ans: 'b' },
     { q: 'Does Ashfaq care more about clean UI or clean architecture?', a: 'Clean UI', b: 'Clean architecture', ans: 'b' },
     { q: 'What type of problems does Ashfaq gravitate toward?', a: 'Well-defined', b: 'No obvious answer', ans: 'b' },
