@@ -121,27 +121,42 @@ export default function App() {
         <div>
           {/* HERO */}
           <div style={{
-            height: '100vh', display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            position: 'relative', paddingTop: '64px',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            paddingTop: '60px',
           }}>
-            {/* Name above video */}
-            <div style={{ position: 'relative', zIndex: 2, marginBottom: '8px', textAlign: 'center' }}>
-              <h1 style={{
-                fontFamily: '"Times New Roman", Times, Georgia, serif',
-                fontWeight: 400, fontStyle: 'normal',
-                fontSize: 'clamp(48px, 8vw, 110px)',
-                color: 'var(--ink)', letterSpacing: '-1px',
-                lineHeight: 1, userSelect: 'none', margin: 0,
-              }}>
-                ashfaq
-              </h1>
-            </div>
 
-            {/* Video */}
+            {/* Name — sits in normal flow, guaranteed above video */}
+            <h1 style={{
+              fontFamily: '"Times New Roman", Times, serif',
+              fontWeight: 400,
+              fontSize: 'clamp(56px, 9vw, 120px)',
+              color: '#0A0908',
+              letterSpacing: '-2px',
+              lineHeight: 1,
+              margin: '0 0 12px 0',
+              padding: 0,
+              userSelect: 'none',
+              textAlign: 'center',
+              flexShrink: 0,
+              zIndex: 2,
+              position: 'relative',
+            }}>
+              ashfaq
+            </h1>
+
+            {/* Video — larger, centered */}
             <div style={{
-              width: '62vw', maxWidth: '860px',
-              zIndex: 1, position: 'relative',
+              width: '72vw',
+              maxWidth: '1000px',
+              minWidth: '480px',
+              flexShrink: 0,
+              position: 'relative',
+              zIndex: 1,
             }}>
               <video ref={videoRef} autoPlay loop muted playsInline
                 style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply' }}>
@@ -152,28 +167,28 @@ export default function App() {
 
             {/* Left floating info */}
             <div style={{
-              position: 'absolute', left: '5%', top: '50%', transform: 'translateY(-50%)',
-              display: 'flex', flexDirection: 'column', gap: '10px', zIndex: 3,
+              position: 'absolute', left: '4%', top: '50%', transform: 'translateY(-50%)',
+              display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3,
             }}>
-              {['ECE + Math', 'Rutgers · New Brunswick', 'Class of 2027'].map(tag => (
+              {['ECE + Math', 'Rutgers · New Brunswick', 'Class of 2028'].map(tag => (
                 <span key={tag} style={{
-                  fontFamily: "'DM Sans',sans-serif", fontSize: '9px', fontWeight: 500,
-                  letterSpacing: '1.5px', textTransform: 'uppercase',
-                  color: 'rgba(10,9,8,0.35)', whiteSpace: 'nowrap',
+                  fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
+                  letterSpacing: '1.8px', textTransform: 'uppercase',
+                  color: 'rgba(10,9,8,0.35)', whiteSpace: 'nowrap', display: 'block',
                 }}>{tag}</span>
               ))}
             </div>
 
-            {/* Right floating stack */}
+            {/* Right floating interests */}
             <div style={{
-              position: 'absolute', right: '5%', top: '50%', transform: 'translateY(-50%)',
-              display: 'flex', flexDirection: 'column', gap: '10px', zIndex: 3, alignItems: 'flex-end',
+              position: 'absolute', right: '4%', top: '50%', transform: 'translateY(-50%)',
+              display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3, alignItems: 'flex-end',
             }}>
               {['Full-Stack', 'Machine Learning', 'Infrastructure'].map(tag => (
                 <span key={tag} style={{
-                  fontFamily: "'DM Sans',sans-serif", fontSize: '9px', fontWeight: 500,
-                  letterSpacing: '1.5px', textTransform: 'uppercase',
-                  color: 'rgba(10,9,8,0.25)', whiteSpace: 'nowrap',
+                  fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
+                  letterSpacing: '1.8px', textTransform: 'uppercase',
+                  color: 'rgba(10,9,8,0.25)', whiteSpace: 'nowrap', display: 'block',
                 }}>{tag}</span>
               ))}
             </div>
@@ -181,7 +196,7 @@ export default function App() {
             {/* Scroll hint */}
             <div style={{
               position: 'absolute', bottom: '28px',
-              fontFamily: "'DM Sans',sans-serif", fontSize: '8px',
+              fontFamily: "'DM Sans', sans-serif", fontSize: '8px',
               letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.25)',
             }}>
               scroll
@@ -191,38 +206,55 @@ export default function App() {
           {/* ABOUT ME */}
           <div style={{ maxWidth: '820px', margin: '0 auto', padding: '96px 48px 0' }}>
             <div style={{ borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '64px' }}>
-              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '40px' }}>About</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px' }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '40px' }}>About</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: '80px', alignItems: 'start' }}>
+
+                {/* Bio */}
                 <div>
-                  <p style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '18px', color: 'var(--ink)', lineHeight: 1.85, marginBottom: '20px' }}>
-                    I'm Ashfaq Shaik-Mohamed — double majoring in ECE and Mathematics at Rutgers, New Brunswick. I build things that push me, and I'm drawn to problems that don't come with obvious answers.
+                  <p style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '19px', color: 'var(--ink)', lineHeight: 1.85, marginBottom: '22px' }}>
+                    Double majoring in ECE and Mathematics at Rutgers — New Brunswick. I like building things that actually push me, and working on problems where the answer isn't obvious from the start.
                   </p>
-                  <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.5)', lineHeight: 1.9, marginBottom: '24px' }}>
-                    My interests span full-stack, machine learning, and infrastructure — wherever the hard engineering lives. Feel free to reach out at <a href="mailto:ashad.shaikmohamed@rutgers.edu" style={{ color: 'var(--ink)', textDecoration: 'none', borderBottom: '1px solid rgba(10,9,8,0.2)' }}>ashad.shaikmohamed@rutgers.edu</a>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.52)', lineHeight: 1.9, marginBottom: '28px' }}>
+                    My work sits across full-stack, machine learning, and infrastructure. Not because I can't pick — because the interesting problems usually touch all three. If something catches your eye, reach out:
                   </p>
+                  <a href="mailto:ashfaq.shaikmohamed@rutgers.edu"
+                    style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', letterSpacing: '0.5px', color: 'var(--ink)', textDecoration: 'none', borderBottom: '1px solid rgba(10,9,8,0.3)', paddingBottom: '2px', transition: 'border-color 0.2s' }}
+                    onMouseOver={e => (e.currentTarget.style.borderColor = 'var(--ink)')}
+                    onMouseOut={e => (e.currentTarget.style.borderColor = 'rgba(10,9,8,0.3)')}>
+                    ashfaq.shaikmohamed@rutgers.edu
+                  </a>
                 </div>
+
+                {/* Details + Stack */}
                 <div>
-                  <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.3)', marginBottom: '24px' }}>Stack</p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 0' }}>
-                    {stack.map((s, i) => (
-                      <span key={s} style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontStyle: 'italic', fontSize: '19px', color: 'var(--ink)', marginRight: i < stack.length - 1 ? '0' : '0' }}>
-                        {s}{i < stack.length - 1 ? <span style={{ color: 'rgba(10,9,8,0.2)', margin: '0 8px' }}>·</span> : ''}
-                      </span>
-                    ))}
-                  </div>
-                  <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ marginBottom: '36px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {[
                       { label: 'Degree', value: 'B.Eng ECE & Mathematics' },
                       { label: 'School', value: 'Rutgers University' },
-                      { label: 'Interests', value: 'Full-Stack · ML · Infra' },
+                      { label: 'Class', value: '2028' },
+                      { label: 'Focus', value: 'Full-Stack · ML · Infra' },
                     ].map(item => (
-                      <div key={item.label} style={{ display: 'flex', gap: '16px', alignItems: 'baseline' }}>
-                        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.3)', minWidth: '56px' }}>{item.label}</span>
-                        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)' }}>{item.value}</span>
+                      <div key={item.label} style={{ display: 'flex', gap: '20px', alignItems: 'baseline' }}>
+                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.28)', minWidth: '52px' }}>{item.label}</span>
+                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.5 }}>{item.value}</span>
                       </div>
                     ))}
                   </div>
+
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.28)', marginBottom: '14px' }}>Stack</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {stack.map((s) => (
+                      <span key={s} style={{
+                        fontFamily: '"Times New Roman", Times, serif',
+                        fontStyle: 'italic',
+                        fontSize: '16px',
+                        color: 'rgba(10,9,8,0.7)',
+                        lineHeight: 1.4,
+                      }}>{s}</span>
+                    ))}
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -236,7 +268,7 @@ export default function App() {
             }}>
               {[
                 { n: '50K+', l: 'Records ingested' },
-                { n: '2', l: 'Majors' },
+                { n: '2028', l: 'Graduating' },
                 { n: '2', l: 'Live products' },
                 { n: '∞', l: 'Problems left' },
               ].map(s => (
