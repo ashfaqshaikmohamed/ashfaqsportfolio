@@ -76,14 +76,25 @@ export default function App() {
       <nav style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '20px 48px',
-        background: 'rgba(248,245,240,0.9)', backdropFilter: 'blur(14px)',
+        padding: '12px 48px',
+        background: 'rgba(248,245,240,0.92)', backdropFilter: 'blur(14px)',
         borderBottom: '1px solid rgba(10,9,8,0.07)',
       }}>
-        <span style={{ fontFamily: 'Georgia,"Times New Roman",serif', fontSize: '14px', fontWeight: 400, color: 'var(--ink)', letterSpacing: '0.3px' }}>
+        {/* Name — large serif, the real brand mark */}
+        <span style={{
+          fontFamily: '"Times New Roman", Times, serif',
+          fontSize: '32px',
+          fontWeight: 400,
+          color: '#0A0908',
+          letterSpacing: '-0.5px',
+          lineHeight: 1,
+          userSelect: 'none',
+        }}>
           ashfaq
         </span>
-        <div style={{ display: 'flex', gap: '32px' }}>
+
+        {/* Nav tabs — center */}
+        <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
           {(['home','projects','playground','arcade'] as Tab[]).map(t => (
             <button key={t} {...hov}
               onClick={() => { setTab(t); if (t === 'arcade') setGame('menu'); }}
@@ -119,7 +130,7 @@ export default function App() {
       {/* HOME */}
       {tab === 'home' && (
         <div>
-          {/* HERO */}
+          {/* HERO — video only, full viewport, no competing name element */}
           <div style={{
             height: '100vh',
             display: 'flex',
@@ -127,34 +138,14 @@ export default function App() {
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
-            paddingTop: '60px',
+            paddingTop: '56px', /* nav height offset */
           }}>
 
-            {/* Name — sits in normal flow, guaranteed above video */}
-            <h1 style={{
-              fontFamily: '"Times New Roman", Times, serif',
-              fontWeight: 400,
-              fontSize: 'clamp(56px, 9vw, 120px)',
-              color: '#0A0908',
-              letterSpacing: '-2px',
-              lineHeight: 1,
-              margin: '0 0 12px 0',
-              padding: 0,
-              userSelect: 'none',
-              textAlign: 'center',
-              flexShrink: 0,
-              zIndex: 2,
-              position: 'relative',
-            }}>
-              ashfaq
-            </h1>
-
-            {/* Video — larger, centered */}
+            {/* Video — large and centered */}
             <div style={{
-              width: '72vw',
-              maxWidth: '1000px',
-              minWidth: '480px',
-              flexShrink: 0,
+              width: '82vw',
+              maxWidth: '1100px',
+              minWidth: '520px',
               position: 'relative',
               zIndex: 1,
             }}>
