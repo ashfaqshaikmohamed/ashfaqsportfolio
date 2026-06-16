@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-type Tab = 'home' | 'projects' | 'playground' | 'relax';
+type Tab = 'home' | 'projects' | 'playground' | 'arcade';
 type Game = 'menu' | 'pong' | 'snake' | 'tetris';
 
 const projects = [
@@ -36,21 +36,13 @@ const projects = [
   },
 ];
 
-const words = ['builder', 'engineer', 'thinker', 'maker', 'curious'];
-const wordDescriptions: Record<string, string> = {
-  builder: 'Ships products people actually use.',
-  engineer: 'CS + Math @ Rutgers Honors College. GPA 3.90.',
-  thinker: 'Drawn to open-ended problems without clear paths.',
-  maker: 'From hardware to full-stack — whatever it takes.',
-  curious: 'Currently deep in AI/ML, civic tech, and infra.',
-};
+const stack = ['Python', 'React', 'Java', 'JavaScript', 'TypeScript', 'Rust', 'C', 'Node.js'];
 
 export default function App() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [tab, setTab] = useState<Tab>('home');
   const [cursor, setCursor] = useState({ x: -200, y: -200 });
   const [cursorHover, setCursorHover] = useState(false);
-  const [hoveredWord, setHoveredWord] = useState<string | null>(null);
   const [game, setGame] = useState<Game>('menu');
 
   useEffect(() => {
@@ -80,7 +72,7 @@ export default function App() {
         pointerEvents: 'none', mixBlendMode: 'multiply',
       }} />
 
-      {/* ── NAV ── */}
+      {/* NAV */}
       <nav style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -92,9 +84,9 @@ export default function App() {
           ashfaq
         </span>
         <div style={{ display: 'flex', gap: '32px' }}>
-          {(['home','projects','playground','relax'] as Tab[]).map(t => (
+          {(['home','projects','playground','arcade'] as Tab[]).map(t => (
             <button key={t} {...hov}
-              onClick={() => { setTab(t); if (t === 'relax') setGame('menu'); }}
+              onClick={() => { setTab(t); if (t === 'arcade') setGame('menu'); }}
               style={{
                 background: 'none', border: 'none', cursor: 'none',
                 fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 500,
@@ -112,7 +104,7 @@ export default function App() {
           {[
             { href: 'https://github.com/ashfaqshaikmohamed', title: 'GitHub', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> },
             { href: 'https://www.linkedin.com/in/ashfaqece/', title: 'LinkedIn', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
-            { href: 'mailto:shaikmohamedashfaq@gmail.com', title: 'Email', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
+            { href: 'mailto:ashad.shaikmohamed@rutgers.edu', title: 'Email', svg: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
           ].map(({ href, title, svg }) => (
             <a key={title} href={href} target={href.startsWith('mailto') ? undefined : '_blank'} title={title} {...hov}
               style={{ color: 'var(--warm-mid)', display: 'flex', transition: 'color 0.18s' }}
@@ -124,21 +116,21 @@ export default function App() {
         </div>
       </nav>
 
-      {/* ══════════════════════════════════════════════════════ HOME ══ */}
+      {/* HOME */}
       {tab === 'home' && (
         <div>
-          {/* ── HERO: full-viewport centered composition ── */}
+          {/* HERO */}
           <div style={{
             height: '100vh', display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center',
             position: 'relative', paddingTop: '64px',
           }}>
-            {/* Name — smaller so video can dominate */}
-            <div style={{ position: 'relative', zIndex: 2, marginBottom: '-20px', textAlign: 'center' }}>
+            {/* Name above video */}
+            <div style={{ position: 'relative', zIndex: 2, marginBottom: '8px', textAlign: 'center' }}>
               <h1 style={{
-                fontFamily: 'Georgia,"Times New Roman",serif',
+                fontFamily: '"Times New Roman", Times, Georgia, serif',
                 fontWeight: 400, fontStyle: 'normal',
-                fontSize: 'clamp(52px, 9vw, 130px)',
+                fontSize: 'clamp(48px, 8vw, 110px)',
                 color: 'var(--ink)', letterSpacing: '-1px',
                 lineHeight: 1, userSelect: 'none', margin: 0,
               }}>
@@ -146,9 +138,9 @@ export default function App() {
               </h1>
             </div>
 
-            {/* Video — large, centered, bleeds slightly under name */}
+            {/* Video */}
             <div style={{
-              width: '78vw', maxWidth: '1060px',
+              width: '62vw', maxWidth: '860px',
               zIndex: 1, position: 'relative',
             }}>
               <video ref={videoRef} autoPlay loop muted playsInline
@@ -158,12 +150,12 @@ export default function App() {
               </video>
             </div>
 
-            {/* Floating tags — left side */}
+            {/* Left floating info */}
             <div style={{
               position: 'absolute', left: '5%', top: '50%', transform: 'translateY(-50%)',
               display: 'flex', flexDirection: 'column', gap: '10px', zIndex: 3,
             }}>
-              {['SWE Intern @ Google', 'Rutgers Honors · CS + Math', 'GPA 3.90', 'Class of Dec 2027'].map(tag => (
+              {['ECE + Math', 'Rutgers · New Brunswick', 'Class of 2027'].map(tag => (
                 <span key={tag} style={{
                   fontFamily: "'DM Sans',sans-serif", fontSize: '9px', fontWeight: 500,
                   letterSpacing: '1.5px', textTransform: 'uppercase',
@@ -172,12 +164,12 @@ export default function App() {
               ))}
             </div>
 
-            {/* Floating tags — right side */}
+            {/* Right floating stack */}
             <div style={{
               position: 'absolute', right: '5%', top: '50%', transform: 'translateY(-50%)',
               display: 'flex', flexDirection: 'column', gap: '10px', zIndex: 3, alignItems: 'flex-end',
             }}>
-              {['Next.js · FastAPI', 'PostgreSQL · Redis', 'Docker · Gemini AI', 'React · TypeScript'].map(tag => (
+              {['Full-Stack', 'Machine Learning', 'Infrastructure'].map(tag => (
                 <span key={tag} style={{
                   fontFamily: "'DM Sans',sans-serif", fontSize: '9px', fontWeight: 500,
                   letterSpacing: '1.5px', textTransform: 'uppercase',
@@ -196,76 +188,46 @@ export default function App() {
             </div>
           </div>
 
-          {/* ── TERMINAL BLOCK (like Christian's) ── */}
-          <div style={{ maxWidth: '820px', margin: '0 auto', padding: '80px 48px 0' }}>
-            <div style={{
-              background: 'rgba(10,9,8,0.03)', border: '1px solid rgba(10,9,8,0.08)',
-              borderRadius: '4px', padding: '28px 32px', fontFamily: "'DM Sans',monospace",
-              fontSize: '12px', lineHeight: 2, color: 'rgba(10,9,8,0.6)',
-            }}>
-              <div><span style={{ color: 'var(--gold)' }}>› </span><span style={{ color: 'var(--ink)', fontWeight: 500 }}>whoami</span></div>
-              <div style={{ marginLeft: '16px' }}>ashfaq shaik-mohamed</div>
-              <div style={{ marginTop: '8px' }}><span style={{ color: 'var(--gold)' }}>› </span><span style={{ color: 'var(--ink)', fontWeight: 500 }}>cat profile.json</span></div>
-              <div style={{ marginLeft: '16px', whiteSpace: 'pre', color: 'rgba(10,9,8,0.5)' }}>{`{
-  "role": "software engineer",
-  "school": "rutgers honors college",
-  "internship": "google swe intern",
-  "focus": "civic tech · ai/ml · full-stack",
-  "available": "summer 2026 + beyond"
-}`}</div>
-              <div style={{ marginTop: '8px' }}><span style={{ color: 'var(--gold)' }}>› </span><span style={{ color: 'var(--ink)', fontWeight: 500 }}>echo $STACK</span></div>
-              <div style={{ marginLeft: '16px', display: 'flex', flexWrap: 'wrap', gap: '8px 16px' }}>
-                {['Next.js','FastAPI','PostgreSQL','Redis','Docker','Gemini AI','React','TypeScript','PostGIS','Celery'].map(t => (
-                  <span key={t} style={{ color: 'rgba(10,9,8,0.5)', fontFamily: "'DM Sans',sans-serif", fontSize: '11px' }}>{t}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ── ABOUT + WORD GAME ── */}
-          <div style={{ maxWidth: '820px', margin: '0 auto', padding: '72px 48px 0' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '56px' }}>
-              <div>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '20px' }}>About</p>
-                <p style={{ fontFamily: 'Georgia,"Times New Roman",serif', fontSize: '16px', color: 'var(--ink)', lineHeight: 1.9, marginBottom: '16px' }}>
-                  I build things that are actually useful — products that solve problems I've run into, made with care that shows.
-                </p>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.5)', lineHeight: 1.85 }}>
-                  Drawn to open-ended challenges at the intersection of AI, infrastructure, and civic good. When I'm not building, I'm thinking about what to build next.
-                </p>
-              </div>
-              <div>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '20px' }}>Who is Ashfaq?</p>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'rgba(10,9,8,0.35)', marginBottom: '20px', letterSpacing: '0.5px' }}>hover a word</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 20px', marginBottom: '24px' }}>
-                  {words.map(w => (
-                    <span key={w}
-                      onMouseEnter={() => { setHoveredWord(w); setCursorHover(true); }}
-                      onMouseLeave={() => { setHoveredWord(null); setCursorHover(false); }}
-                      style={{
-                        fontFamily: 'Georgia,"Times New Roman",serif', fontStyle: 'italic', fontSize: '22px',
-                        fontWeight: 400,
-                        color: hoveredWord === w ? 'var(--ink)' : 'rgba(10,9,8,0.15)',
-                        cursor: 'none', transition: 'color 0.2s, transform 0.2s ease',
-                        transform: hoveredWord === w ? 'translateY(-2px)' : 'none',
-                        display: 'inline-block', userSelect: 'none',
-                      }}>
-                      {w}
-                    </span>
-                  ))}
+          {/* ABOUT ME */}
+          <div style={{ maxWidth: '820px', margin: '0 auto', padding: '96px 48px 0' }}>
+            <div style={{ borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '64px' }}>
+              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '40px' }}>About</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px' }}>
+                <div>
+                  <p style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '18px', color: 'var(--ink)', lineHeight: 1.85, marginBottom: '20px' }}>
+                    I'm Ashfaq Shaik-Mohamed — double majoring in ECE and Mathematics at Rutgers, New Brunswick. I build things that push me, and I'm drawn to problems that don't come with obvious answers.
+                  </p>
+                  <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.5)', lineHeight: 1.9, marginBottom: '24px' }}>
+                    My interests span full-stack, machine learning, and infrastructure — wherever the hard engineering lives. Feel free to reach out at <a href="mailto:ashad.shaikmohamed@rutgers.edu" style={{ color: 'var(--ink)', textDecoration: 'none', borderBottom: '1px solid rgba(10,9,8,0.2)' }}>ashad.shaikmohamed@rutgers.edu</a>
+                  </p>
                 </div>
-                <div style={{ minHeight: '44px', borderTop: '1px solid rgba(10,9,8,0.06)', paddingTop: '16px' }}>
-                  {hoveredWord && (
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'var(--ink)', animation: 'fadeUp 0.15s ease', lineHeight: 1.6 }}>
-                      {wordDescriptions[hoveredWord]}
-                    </p>
-                  )}
+                <div>
+                  <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.3)', marginBottom: '24px' }}>Stack</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 0' }}>
+                    {stack.map((s, i) => (
+                      <span key={s} style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontStyle: 'italic', fontSize: '19px', color: 'var(--ink)', marginRight: i < stack.length - 1 ? '0' : '0' }}>
+                        {s}{i < stack.length - 1 ? <span style={{ color: 'rgba(10,9,8,0.2)', margin: '0 8px' }}>·</span> : ''}
+                      </span>
+                    ))}
+                  </div>
+                  <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {[
+                      { label: 'Degree', value: 'B.Eng ECE & Mathematics' },
+                      { label: 'School', value: 'Rutgers University' },
+                      { label: 'Interests', value: 'Full-Stack · ML · Infra' },
+                    ].map(item => (
+                      <div key={item.label} style={{ display: 'flex', gap: '16px', alignItems: 'baseline' }}>
+                        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.3)', minWidth: '56px' }}>{item.label}</span>
+                        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)' }}>{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ── STATS ── */}
+          {/* STATS */}
           <div style={{ maxWidth: '820px', margin: '0 auto', padding: '64px 48px 0' }}>
             <div style={{
               display: 'grid', gridTemplateColumns: 'repeat(4,1fr)',
@@ -274,19 +236,19 @@ export default function App() {
             }}>
               {[
                 { n: '50K+', l: 'Records ingested' },
-                { n: '3.90', l: 'GPA · Honors' },
+                { n: '2', l: 'Majors' },
                 { n: '2', l: 'Live products' },
                 { n: '∞', l: 'Problems left' },
               ].map(s => (
                 <div key={s.l} style={{ textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'Georgia,serif', fontSize: '32px', color: 'var(--ink)', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
+                  <div style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '32px', color: 'var(--ink)', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
                   <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginTop: '8px' }}>{s.l}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* ── PROJECT PREVIEW CARDS ── */}
+          {/* PROJECT PREVIEW CARDS */}
           <div style={{ maxWidth: '820px', margin: '0 auto', padding: '64px 48px 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '32px' }}>
               <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)' }}>Recent Work</p>
@@ -309,7 +271,7 @@ export default function App() {
                     onMouseOver={e=>{(e.currentTarget as HTMLElement).style.borderColor='var(--ink)';(e.currentTarget as HTMLElement).style.transform='translateY(-2px)';}}
                     onMouseOut={e=>{(e.currentTarget as HTMLElement).style.borderColor='rgba(10,9,8,0.08)';(e.currentTarget as HTMLElement).style.transform='none';}}>
                     <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '8px' }}>{p.year}</p>
-                    <h3 style={{ fontFamily: 'Georgia,serif', fontSize: '20px', fontWeight: 400, color: 'var(--ink)', marginBottom: '8px' }}>{p.title}</h3>
+                    <h3 style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '22px', fontWeight: 400, color: 'var(--ink)', marginBottom: '8px' }}>{p.title}</h3>
                     <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.45)', lineHeight: 1.7, marginBottom: '16px' }}>{p.tagline}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                       {p.tags.slice(0,3).map(t => (
@@ -322,25 +284,25 @@ export default function App() {
             </div>
           </div>
 
-          {/* ── FOOTER ── */}
-          <div style={{ maxWidth: '820px', margin: '0 auto', padding: '64px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(10,9,8,0.06)', marginTop: '80px' }}>
+          {/* FOOTER */}
+          <div style={{ maxWidth: '820px', margin: '80px auto 0', padding: '32px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(10,9,8,0.06)' }}>
             <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)' }}>Ashfaq Shaik-Mohamed · 2025</span>
             <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.2)' }}>Jersey City, NJ</span>
           </div>
         </div>
       )}
 
-      {/* ══════════════════════════════════════════════════════ PROJECTS ══ */}
+      {/* PROJECTS */}
       {tab === 'projects' && (
         <div style={{ maxWidth: '820px', margin: '0 auto', padding: '140px 48px 80px' }}>
           <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '56px' }}>Selected Work</p>
           {projects.map((p, i) => (
             <div key={i} style={{ borderTop: '1px solid rgba(10,9,8,0.08)', padding: '52px 0' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4px' }}>
-                <h2 style={{ fontFamily: 'Georgia,serif', fontSize: '34px', fontWeight: 400, color: 'var(--ink)', letterSpacing: '-0.5px' }}>{p.title}</h2>
+                <h2 style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '34px', fontWeight: 400, color: 'var(--ink)', letterSpacing: '-0.5px' }}>{p.title}</h2>
                 <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)' }}>{p.year}</span>
               </div>
-              <p style={{ fontFamily: 'Georgia,serif', fontStyle: 'italic', fontSize: '15px', color: 'var(--warm-mid)', marginBottom: '20px' }}>{p.tagline}</p>
+              <p style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontStyle: 'italic', fontSize: '15px', color: 'var(--warm-mid)', marginBottom: '20px' }}>{p.tagline}</p>
               <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '14px', color: 'rgba(10,9,8,0.55)', lineHeight: 1.9, marginBottom: '24px' }}>{p.desc}</p>
               <ul style={{ listStyle: 'none', marginBottom: '28px' }}>
                 {p.bullets.map((b, j) => (
@@ -349,59 +311,52 @@ export default function App() {
                   </li>
                 ))}
               </ul>
-              {/* Stats */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(10,9,8,0.06)', borderBottom: '1px solid rgba(10,9,8,0.06)', padding: '20px 0', marginBottom: '24px' }}>
                 {p.stats.map(s => (
                   <div key={s.l}>
-                    <div style={{ fontFamily: 'Georgia,serif', fontSize: '26px', fontWeight: 400, color: 'var(--ink)' }}>{s.n}</div>
+                    <div style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '26px', fontWeight: 400, color: 'var(--ink)' }}>{s.n}</div>
                     <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginTop: '4px' }}>{s.l}</div>
                   </div>
                 ))}
               </div>
-              {/* Tags */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
                 {p.tags.map(t => (
                   <span key={t} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.38)', border: '1px solid rgba(10,9,8,0.13)', padding: '4px 10px' }}>{t}</span>
                 ))}
               </div>
-              {/* Links */}
               <div style={{ display: 'flex', gap: '24px' }}>
-                <a href={p.link} target="_blank" {...hov} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--ink)', textDecoration: 'none', borderBottom: '1px solid var(--ink)', paddingBottom: '2px' }}>
-                  Live →
-                </a>
-                <a href={p.github} target="_blank" {...hov} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', textDecoration: 'none', borderBottom: '1px solid var(--warm-mid)', paddingBottom: '2px' }}>
-                  GitHub
-                </a>
+                <a href={p.link} target="_blank" {...hov} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--ink)', textDecoration: 'none', borderBottom: '1px solid var(--ink)', paddingBottom: '2px' }}>Live →</a>
+                <a href={p.github} target="_blank" {...hov} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', textDecoration: 'none', borderBottom: '1px solid var(--warm-mid)', paddingBottom: '2px' }}>GitHub</a>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* ══════════════════════════════════════════════════════ PLAYGROUND ══ */}
+      {/* PLAYGROUND */}
       {tab === 'playground' && <PlaygroundTab setCursorHover={setCursorHover} />}
 
-      {/* ══════════════════════════════════════════════════════ RELAX ══ */}
-      {tab === 'relax' && <RelaxTab game={game} setGame={setGame} setCursorHover={setCursorHover} />}
+      {/* ARCADE */}
+      {tab === 'arcade' && <ArcadeTab game={game} setGame={setGame} setCursorHover={setCursorHover} />}
     </div>
   );
 }
 
 // ─── Playground ───────────────────────────────────────────────────────────────
-
 function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => void }) {
   const hov = { onMouseEnter: () => setCursorHover(true), onMouseLeave: () => setCursorHover(false) };
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [words, setWords] = useState<{ text: string; x: number; y: number; size: number; opacity: number; color: string }[]>([]);
+  const [wordList, setWordList] = useState<{ text: string; x: number; y: number; size: number; opacity: number; color: string }[]>([]);
   const [input, setInput] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
 
   const colors = ['rgba(10,9,8,', 'rgba(184,151,74,', 'rgba(107,94,82,'];
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem('portfolio-words-v2');
-      if (saved) setWords(JSON.parse(saved));
+      if (saved) setWordList(JSON.parse(saved));
     } catch {}
   }, []);
 
@@ -410,12 +365,21 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
     if (!canvas) return;
     const ctx = canvas.getContext('2d')!;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    words.forEach(w => {
-      ctx.font = `italic ${w.size}px Georgia, serif`;
-      ctx.fillStyle = w.color + w.opacity + ')';
+    wordList.forEach(w => {
+      const dx = w.x - mousePos.x;
+      const dy = w.y - mousePos.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const boost = dist < 80 ? 1 : 0;
+      ctx.font = `italic ${w.size + boost * 4}px "Times New Roman", Georgia, serif`;
+      ctx.fillStyle = w.color + (w.opacity + boost * 0.3) + ')';
       ctx.fillText(w.text, w.x, w.y);
     });
-  }, [words]);
+  }, [wordList, mousePos]);
+
+  const handleCanvasMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
 
   const addWord = () => {
     const trimmed = input.trim().replace(/\s+/g, '').slice(0, 20);
@@ -429,8 +393,8 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
       size, opacity: 0.3 + Math.random() * 0.6,
       color: colors[Math.floor(Math.random() * colors.length)],
     };
-    const next = [...words, w];
-    setWords(next);
+    const next = [...wordList, w];
+    setWordList(next);
     try { localStorage.setItem('portfolio-words-v2', JSON.stringify(next)); } catch {}
     setInput('');
     setSubmitted(true);
@@ -439,17 +403,18 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
   return (
     <div style={{ maxWidth: '820px', margin: '0 auto', padding: '140px 48px 80px' }}>
       <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '12px' }}>Playground</p>
-      <h2 style={{ fontFamily: 'Georgia,serif', fontSize: '30px', fontWeight: 400, color: 'var(--ink)', marginBottom: '8px' }}>Leave a mark.</h2>
+      <h2 style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '30px', fontWeight: 400, color: 'var(--ink)', marginBottom: '8px' }}>Leave a mark.</h2>
       <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.4)', marginBottom: '40px', lineHeight: 1.7 }}>
-        Drop one word. It lives here with everyone else who visited — a living portrait of the people who found this page.
+        Drop one word. It stays here alongside everyone else who found this page — hover over the canvas to stir things up.
       </p>
 
-      {/* Canvas word cloud */}
       <canvas ref={canvasRef} width={724} height={320}
-        style={{ width: '100%', border: '1px solid rgba(10,9,8,0.08)', display: 'block', marginBottom: '24px', background: 'rgba(10,9,8,0.01)' }} />
+        onMouseMove={handleCanvasMouseMove}
+        onMouseLeave={() => setMousePos({ x: -999, y: -999 })}
+        style={{ width: '100%', border: '1px solid rgba(10,9,8,0.08)', display: 'block', marginBottom: '24px', background: 'rgba(10,9,8,0.01)', cursor: 'none' }} />
 
       {submitted ? (
-        <p style={{ fontFamily: 'Georgia,serif', fontStyle: 'italic', fontSize: '15px', color: 'var(--warm-mid)' }}>
+        <p style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontStyle: 'italic', fontSize: '15px', color: 'var(--warm-mid)' }}>
           your word is up there. thanks for stopping by.
         </p>
       ) : (
@@ -458,7 +423,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
             onChange={e => setInput(e.target.value.replace(/\s/g,'').slice(0,20))}
             onKeyDown={e => e.key === 'Enter' && addWord()}
             maxLength={20} placeholder="one word..."
-            style={{ fontFamily: 'Georgia,serif', fontStyle: 'italic', fontSize: '15px', background: 'none', border: 'none', borderBottom: '1px solid rgba(10,9,8,0.2)', outline: 'none', color: 'var(--ink)', padding: '8px 0', width: '200px', cursor: 'text' }} />
+            style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontStyle: 'italic', fontSize: '15px', background: 'none', border: 'none', borderBottom: '1px solid rgba(10,9,8,0.2)', outline: 'none', color: 'var(--ink)', padding: '8px 0', width: '200px', cursor: 'text' }} />
           <button onClick={addWord} {...hov}
             style={{ background: 'none', border: '1px solid var(--ink)', cursor: 'none', fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--ink)', padding: '9px 20px', transition: 'all 0.2s' }}
             onMouseOver={e=>{(e.currentTarget as HTMLElement).style.background='var(--ink)';(e.currentTarget as HTMLElement).style.color='var(--cream)';}}
@@ -470,42 +435,124 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
 
       <div style={{ marginTop: '64px', borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '48px' }}>
         <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '12px' }}>Visitors</p>
-        <p style={{ fontFamily: 'Georgia,serif', fontSize: '40px', fontWeight: 400, color: 'var(--ink)', lineHeight: 1 }}>{words.length}</p>
+        <p style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '40px', fontWeight: 400, color: 'var(--ink)', lineHeight: 1 }}>{wordList.length}</p>
         <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.3)', marginTop: '8px' }}>words left so far</p>
       </div>
     </div>
   );
 }
 
-// ─── Relax ────────────────────────────────────────────────────────────────────
-
-function RelaxTab({ game, setGame, setCursorHover }: { game: Game; setGame: (g: Game) => void; setCursorHover: (v: boolean) => void }) {
+// ─── Arcade ───────────────────────────────────────────────────────────────────
+function ArcadeTab({ game, setGame, setCursorHover }: { game: Game; setGame: (g: Game) => void; setCursorHover: (v: boolean) => void }) {
   const hov = { onMouseEnter: () => setCursorHover(true), onMouseLeave: () => setCursorHover(false) };
   if (game === 'pong') return <PongGame onBack={() => setGame('menu')} />;
   if (game === 'snake') return <SnakeGame onBack={() => setGame('menu')} />;
   if (game === 'tetris') return <TetrisGame onBack={() => setGame('menu')} />;
 
   return (
-    <div style={{ maxWidth: '820px', margin: '0 auto', padding: '140px 48px 80px' }}>
-      <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '12px' }}>Relax</p>
-      <h2 style={{ fontFamily: 'Georgia,serif', fontSize: '30px', fontWeight: 400, color: 'var(--ink)', marginBottom: '8px' }}>Take a moment.</h2>
-      <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.4)', marginBottom: '56px' }}>Three games. No stakes.</p>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px' }}>
+    <div style={{ maxWidth: '860px', margin: '0 auto', padding: '140px 48px 80px' }}>
+      {/* Header */}
+      <div style={{ marginBottom: '64px' }}>
+        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '16px' }}>Arcade</p>
+        <h2 style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '42px', fontWeight: 400, color: 'var(--ink)', marginBottom: '12px', letterSpacing: '-0.5px' }}>
+          take a break.
+        </h2>
+        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.4)', lineHeight: 1.7, maxWidth: '480px' }}>
+          three games. no scores saved. no pressure. just you and the classics — built from scratch, right here in the browser.
+        </p>
+      </div>
+
+      {/* Scanline decoration */}
+      <div style={{ borderTop: '1px solid rgba(10,9,8,0.06)', marginBottom: '48px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0,
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, var(--gold) 40%, transparent 100%)',
+          opacity: 0.4,
+        }} />
+      </div>
+
+      {/* Game cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
         {[
-          { id: 'pong' as Game, title: 'Pong', sub: 'Classic', desc: 'Arrow keys to move. First to 7 wins.' },
-          { id: 'snake' as Game, title: 'Snake', sub: 'Arcade', desc: 'Arrow keys. Eat, grow, survive.' },
-          { id: 'tetris' as Game, title: 'Tetris', sub: 'Strategy', desc: '← → move · ↑ rotate · Space drop.' },
+          {
+            id: 'pong' as Game,
+            title: 'Pong',
+            tag: '1972',
+            desc: 'The original. You vs. a machine that knows you too well.',
+            controls: '↑ ↓ to move',
+            icon: (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="4" y="14" width="4" height="20" fill="currentColor" opacity="0.8"/>
+                <rect x="40" y="14" width="4" height="20" fill="currentColor" opacity="0.8"/>
+                <circle cx="24" cy="24" r="3" fill="currentColor"/>
+              </svg>
+            ),
+          },
+          {
+            id: 'snake' as Game,
+            title: 'Snake',
+            tag: '1976',
+            desc: 'Eat. Grow. Panic. Repeat until the walls close in.',
+            controls: '← → ↑ ↓ to steer',
+            icon: (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="6" y="22" width="8" height="8" rx="1" fill="currentColor" opacity="0.9"/>
+                <rect x="14" y="22" width="8" height="8" rx="1" fill="currentColor" opacity="0.65"/>
+                <rect x="22" y="22" width="8" height="8" rx="1" fill="currentColor" opacity="0.45"/>
+                <rect x="22" y="14" width="8" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+                <circle cx="36" cy="14" r="4" fill="var(--gold)" opacity="0.9"/>
+              </svg>
+            ),
+          },
+          {
+            id: 'tetris' as Game,
+            title: 'Tetris',
+            tag: '1984',
+            desc: 'Stack it. Clear it. Watch the lines vanish.',
+            controls: '← → move · ↑ rotate · Space drop',
+            icon: (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="10" y="30" width="8" height="8" rx="1" fill="currentColor" opacity="0.8"/>
+                <rect x="18" y="30" width="8" height="8" rx="1" fill="currentColor" opacity="0.8"/>
+                <rect x="18" y="22" width="8" height="8" rx="1" fill="currentColor" opacity="0.5"/>
+                <rect x="26" y="22" width="8" height="8" rx="1" fill="var(--gold)" opacity="0.8"/>
+              </svg>
+            ),
+          },
         ].map(g => (
           <button key={g.id} onClick={() => setGame(g.id)} {...hov}
-            style={{ background: 'none', border: '1px solid rgba(10,9,8,0.1)', cursor: 'none', padding: '36px 24px', textAlign: 'left', transition: 'border-color 0.2s, transform 0.18s' }}
-            onMouseOver={e=>{(e.currentTarget as HTMLElement).style.borderColor='var(--ink)';(e.currentTarget as HTMLElement).style.transform='translateY(-3px)';}}
-            onMouseOut={e=>{(e.currentTarget as HTMLElement).style.borderColor='rgba(10,9,8,0.1)';(e.currentTarget as HTMLElement).style.transform='none';}}>
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '10px' }}>{g.sub}</p>
-            <h3 style={{ fontFamily: 'Georgia,serif', fontSize: '26px', fontWeight: 400, color: 'var(--ink)', marginBottom: '10px' }}>{g.title}</h3>
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'rgba(10,9,8,0.4)', lineHeight: 1.6 }}>{g.desc}</p>
-            <p style={{ fontFamily: 'Georgia,serif', fontSize: '16px', color: 'var(--gold)', marginTop: '18px' }}>Play →</p>
+            style={{
+              background: 'none', border: '1px solid rgba(10,9,8,0.1)', cursor: 'none',
+              padding: '36px 28px', textAlign: 'left', transition: 'border-color 0.2s, transform 0.2s, background 0.2s',
+              position: 'relative', overflow: 'hidden',
+            }}
+            onMouseOver={e => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = 'var(--ink)';
+              el.style.transform = 'translateY(-4px)';
+              el.style.background = 'rgba(10,9,8,0.02)';
+            }}
+            onMouseOut={e => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = 'rgba(10,9,8,0.1)';
+              el.style.transform = 'none';
+              el.style.background = 'none';
+            }}>
+            <div style={{ color: 'var(--ink)', marginBottom: '20px' }}>{g.icon}</div>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--warm-mid)', marginBottom: '8px' }}>{g.tag}</p>
+            <h3 style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '28px', fontWeight: 400, color: 'var(--ink)', marginBottom: '12px' }}>{g.title}</h3>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.45)', lineHeight: 1.7, marginBottom: '20px' }}>{g.desc}</p>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.25)', marginBottom: '20px' }}>{g.controls}</p>
+            <span style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontStyle: 'italic', fontSize: '15px', color: 'var(--gold)' }}>Play →</span>
           </button>
         ))}
+      </div>
+
+      {/* Flavor text at bottom */}
+      <div style={{ marginTop: '64px', borderTop: '1px solid rgba(10,9,8,0.06)', paddingTop: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontStyle: 'italic', fontSize: '13px', color: 'rgba(10,9,8,0.25)' }}>built with canvas. no libraries.</span>
+        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.2)' }}>3 games</span>
       </div>
     </div>
   );
@@ -535,7 +582,7 @@ function PongGame({ onBack }: { onBack: () => void }) {
       ctx.setLineDash([5,8]);ctx.strokeStyle='rgba(10,9,8,0.08)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);
       ctx.fillStyle='#0A0908';ctx.fillRect(30,s.p1.y,PW,PH);ctx.fillRect(W-30-PW,s.p2.y,PW,PH);
       ctx.beginPath();ctx.arc(s.ball.x,s.ball.y,5,0,Math.PI*2);ctx.fillStyle='#0A0908';ctx.fill();
-      ctx.fillStyle='rgba(10,9,8,0.18)';ctx.font='400 26px Georgia';ctx.textAlign='center';
+      ctx.fillStyle='rgba(10,9,8,0.18)';ctx.font='400 26px "Times New Roman",Georgia';ctx.textAlign='center';
       ctx.fillText(`${s.score.p1}`,W/2-60,42);ctx.fillText(`${s.score.p2}`,W/2+60,42);
       raf=requestAnimationFrame(loop);
     };
@@ -577,8 +624,8 @@ function SnakeGame({ onBack }: { onBack: () => void }) {
       for(let y=0;y<=ROWS;y++){ctx.beginPath();ctx.moveTo(0,y*CELL);ctx.lineTo(COLS*CELL,y*CELL);ctx.stroke();}
       ctx.fillStyle='#B8974A';ctx.beginPath();ctx.arc(food.x*CELL+CELL/2,food.y*CELL+CELL/2,CELL/2-2,0,Math.PI*2);ctx.fill();
       snake.forEach((seg,i)=>{const a=1-(i/snake.length)*0.65;ctx.fillStyle=`rgba(10,9,8,${a})`;ctx.fillRect(seg.x*CELL+1,seg.y*CELL+1,CELL-2,CELL-2);});
-      ctx.fillStyle='rgba(10,9,8,0.22)';ctx.font='400 15px Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,10,22);
-      if(dead){ctx.fillStyle='rgba(248,245,240,0.88)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 26px Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 12px DM Sans';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
+      ctx.fillStyle='rgba(10,9,8,0.22)';ctx.font='400 15px "Times New Roman",Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,10,22);
+      if(dead){ctx.fillStyle='rgba(248,245,240,0.88)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 26px "Times New Roman",Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 12px DM Sans';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
       requestAnimationFrame(draw);
     };
     requestAnimationFrame(draw);
@@ -624,8 +671,8 @@ function TetrisGame({ onBack }: { onBack: () => void }) {
       let gy=py;while(valid(piece.shape,px,gy+1))gy++;
       piece.shape.forEach((row,r)=>row.forEach((v,c)=>{if(v&&gy+r>=0){ctx.fillStyle='rgba(10,9,8,0.07)';ctx.fillRect((px+c)*CELL+1,(gy+r)*CELL+1,CELL-2,CELL-2);}}));
       piece.shape.forEach((row,r)=>row.forEach((v,c)=>{if(v&&py+r>=0){ctx.fillStyle=piece.color;ctx.fillRect((px+c)*CELL+1,(py+r)*CELL+1,CELL-2,CELL-2);}}));
-      ctx.fillStyle='rgba(10,9,8,0.2)';ctx.font='400 13px Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,6,18);
-      if(dead){ctx.fillStyle='rgba(248,245,240,0.9)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 24px Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 11px sans-serif';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
+      ctx.fillStyle='rgba(10,9,8,0.2)';ctx.font='400 13px "Times New Roman",Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,6,18);
+      if(dead){ctx.fillStyle='rgba(248,245,240,0.9)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 24px "Times New Roman",Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 11px sans-serif';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
       requestAnimationFrame(draw);
     };
     requestAnimationFrame(draw);
@@ -639,7 +686,7 @@ function GameShell({ title, hint, onBack, children }: { title: string; hint: str
     <div style={{ display:'flex',flexDirection:'column',alignItems:'center',padding:'120px 48px 80px' }}>
       <div style={{ width:'100%',maxWidth:'860px',display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'32px' }}>
         <button onClick={onBack} style={{ background:'none',border:'none',cursor:'pointer',fontFamily:"'DM Sans',sans-serif",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',color:'var(--warm-mid)' }}>← Back</button>
-        <span style={{ fontFamily:'Georgia,serif',fontSize:'16px',color:'var(--ink)',fontWeight:400 }}>{title}</span>
+        <span style={{ fontFamily:'"Times New Roman", Times, Georgia, serif',fontSize:'16px',color:'var(--ink)',fontWeight:400 }}>{title}</span>
         <span style={{ width:'48px' }}/>
       </div>
       {children}
