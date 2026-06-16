@@ -129,39 +129,27 @@ export default function App() {
       {tab === 'home' && (
         <div>
 
-          {/* HERO — name ON TOP of video using absolute positioning */}
+          {/* HERO — name sits between nav and video, then video below */}
           <div style={{
-            height: '100vh', position: 'relative',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            paddingTop: '56px',
+            paddingTop: '56px', /* nav height */
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center',
+            minHeight: '100vh',
+            position: 'relative',
           }}>
 
-            {/* Video container — sits behind name via z-index */}
-            <div style={{ width: '90vw', maxWidth: '1200px', minWidth: '520px', zIndex: 1, flexShrink: 0 }}>
-              <video ref={videoRef} autoPlay loop muted playsInline
-                style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply' }}>
-                <source src="/background.webm" type="video/webm" />
-                <source src="/background.mp4" type="video/mp4" />
-              </video>
-            </div>
-
-            {/* "ashfaq" — absolutely positioned, centered, z-index ABOVE video */}
+            {/* "ashfaq" — centered between nav and video */}
             <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 10,
-              pointerEvents: 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              paddingTop: '40px', paddingBottom: '32px',
+              width: '100%',
               userSelect: 'none',
               textAlign: 'center',
-              /* push it to the upper portion of the video */
-              marginTop: '-18vh',
             }}>
               <h1 style={{
                 fontFamily: '"Times New Roman", Times, serif',
                 fontWeight: 400,
-                fontSize: 'clamp(72px, 11vw, 160px)',
+                fontSize: 'clamp(72px, 10vw, 148px)',
                 color: '#0A0908',
                 letterSpacing: '-3px',
                 lineHeight: 1,
@@ -171,37 +159,47 @@ export default function App() {
               </h1>
             </div>
 
-            {/* Left floating labels */}
-            <div style={{
-              position: 'absolute', left: '3%', top: '50%', transform: 'translateY(-50%)',
-              display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3,
-            }}>
-              {['ECE + Math', 'Rutgers · NB', 'Class of 2028'].map(tag => (
-                <span key={tag} style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
-                  letterSpacing: '1.8px', textTransform: 'uppercase',
-                  color: 'rgba(10,9,8,0.35)', whiteSpace: 'nowrap', display: 'block',
-                }}>{tag}</span>
-              ))}
-            </div>
+            {/* Video + side labels row */}
+            <div style={{ position: 'relative', width: '95vw', maxWidth: '1300px' }}>
+              {/* Left floating labels */}
+              <div style={{
+                position: 'absolute', left: '-80px', top: '50%', transform: 'translateY(-50%)',
+                display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3,
+              }}>
+                {['ECE + Math', 'Rutgers · NB', 'Class of 2028'].map(tag => (
+                  <span key={tag} style={{
+                    fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
+                    letterSpacing: '1.8px', textTransform: 'uppercase',
+                    color: 'rgba(10,9,8,0.35)', whiteSpace: 'nowrap', display: 'block',
+                  }}>{tag}</span>
+                ))}
+              </div>
 
-            {/* Right floating labels */}
-            <div style={{
-              position: 'absolute', right: '3%', top: '50%', transform: 'translateY(-50%)',
-              display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3, alignItems: 'flex-end',
-            }}>
-              {['Full-Stack', 'ML', 'Infra'].map(tag => (
-                <span key={tag} style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
-                  letterSpacing: '1.8px', textTransform: 'uppercase',
-                  color: 'rgba(10,9,8,0.25)', whiteSpace: 'nowrap', display: 'block',
-                }}>{tag}</span>
-              ))}
+              {/* Video */}
+              <video ref={videoRef} autoPlay loop muted playsInline
+                style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply' }}>
+                <source src="/output2.mov" type="video/quicktime" />
+                <source src="/output2.mov" type="video/mp4" />
+              </video>
+
+              {/* Right floating labels */}
+              <div style={{
+                position: 'absolute', right: '-80px', top: '50%', transform: 'translateY(-50%)',
+                display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3, alignItems: 'flex-end',
+              }}>
+                {['Full-Stack', 'ML', 'Infra'].map(tag => (
+                  <span key={tag} style={{
+                    fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
+                    letterSpacing: '1.8px', textTransform: 'uppercase',
+                    color: 'rgba(10,9,8,0.25)', whiteSpace: 'nowrap', display: 'block',
+                  }}>{tag}</span>
+                ))}
+              </div>
             </div>
 
             {/* Scroll hint */}
             <div style={{
-              position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+              paddingTop: '32px', paddingBottom: '32px',
               fontFamily: "'DM Sans', sans-serif", fontSize: '8px',
               letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.22)',
             }}>scroll</div>
@@ -391,19 +389,20 @@ export default function App() {
 function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => void }) {
   const hov = { onMouseEnter: () => setCursorHover(true), onMouseLeave: () => setCursorHover(false) };
 
+  // Ashfaq's actual answers are marked — used for match scoring
   const questions = [
-    { q: 'Tabs or spaces?',         a: 'Tabs', b: 'Spaces' },
-    { q: 'Dark mode or light mode?', a: 'Dark', b: 'Light' },
-    { q: 'Vim or VS Code?',         a: 'Vim', b: 'VS Code' },
-    { q: 'Mac or Linux?',           a: 'Mac', b: 'Linux' },
-    { q: 'Static or dynamic typing?', a: 'Static', b: 'Dynamic' },
-    { q: 'Coffee or tea?',          a: 'Coffee', b: 'Tea' },
-    { q: 'Build or break things?',  a: 'Build', b: 'Break' },
-    { q: 'Frontend or backend?',    a: 'Frontend', b: 'Backend' },
-    { q: 'Ship fast or ship right?', a: 'Fast', b: 'Right' },
-    { q: 'Headphones or silence?',  a: 'Headphones', b: 'Silence' },
-    { q: 'Reading docs or Stack Overflow?', a: 'Docs', b: 'Stack Overflow' },
-    { q: 'Morning coder or night owl?', a: 'Morning', b: 'Night' },
+    { q: 'What year did Ashfaq start at Rutgers?', a: '2024', b: '2023', ans: 'b' },
+    { q: 'Which of Ashfaq\'s majors came first?', a: 'Math', b: 'ECE', ans: 'b' },
+    { q: 'What\'s Ashfaq\'s go-to language for backend work?', a: 'Python', b: 'Java', ans: 'a' },
+    { q: 'CityPulse or Receipt — which shipped first?', a: 'CityPulse', b: 'Receipt', ans: 'b' },
+    { q: 'Does Ashfaq prefer building solo or with a team?', a: 'Solo', b: 'Team', ans: 'a' },
+    { q: 'What\'s the AI model powering CityPulse\'s image triage?', a: 'GPT-4V', b: 'Gemini Flash', ans: 'b' },
+    { q: 'Does Ashfaq care more about clean UI or clean architecture?', a: 'Clean UI', b: 'Clean architecture', ans: 'b' },
+    { q: 'What type of problems does Ashfaq gravitate toward?', a: 'Well-defined', b: 'No obvious answer', ans: 'b' },
+    { q: 'What does Receipt use for its OCR?', a: 'Tesseract.js', b: 'AWS Textract', ans: 'a' },
+    { q: 'What\'s Ashfaq\'s hometown?', a: 'Newark', b: 'Jersey City', ans: 'b' },
+    { q: 'Which does Ashfaq lean toward: ML or infrastructure?', a: 'ML', b: 'Infrastructure', ans: 'a' },
+    { q: 'Does Ashfaq write the docs or skip them?', a: 'Writes them', b: 'Skips them', ans: 'a' },
   ];
 
   type Vote = { a: number; b: number };
@@ -446,12 +445,12 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
     <div style={{ maxWidth: '720px', margin: '0 auto', padding: '120px 48px 80px' }}>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Play</p>
       <h2 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '36px', fontWeight: 400, color: '#0A0908', marginBottom: '10px', letterSpacing: '-0.5px' }}>
-        {allDone ? 'All done.' : 'This or that.'}
+        {allDone ? 'results.' : 'how well do you know me?'}
       </h2>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.4)', marginBottom: '56px', lineHeight: 1.7 }}>
         {allDone
-          ? 'You\'ve weighed in on everything. Scroll up to see how the crowd voted.'
-          : 'Pick a side. See how everyone else answered. No wrong answers — well, almost.'}
+          ? 'Here\'s how your answers stack up against mine.'
+          : '12 questions about me. Pick what you think is right — then see if you got it.'}
       </p>
 
       {/* Tab selector */}
@@ -505,8 +504,8 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
 
                   <span style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '22px', color: '#0A0908', display: 'block', marginBottom: '8px', position: 'relative', zIndex: 1 }}>{label}</span>
                   {revealed[qi] && (
-                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', position: 'relative', zIndex: 1 }}>
-                      {percent}% · {count} {count === 1 ? 'vote' : 'votes'}
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '1.5px', textTransform: 'uppercase', color: side === (questions[qi] as any).ans ? '#2C7A2C' : '#6B5E52', position: 'relative', zIndex: 1 }}>
+                      {side === (questions[qi] as any).ans ? '✓ correct' : '✗ wrong'} · {percent}%
                     </span>
                   )}
                   {!revealed[qi] && (
@@ -517,8 +516,8 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
             })}
           </div>
           {answered[qi] && (
-            <p style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '14px', color: '#6B5E52' }}>
-              {answered[qi] === 'a' ? q.a : q.b} — noted.
+            <p style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '14px', color: answered[qi] === (q as any).ans ? '#2C7A2C' : '#8B2A2A' }}>
+              {answered[qi] === (q as any).ans ? `${answered[qi] === 'a' ? q.a : q.b} — you got it.` : `${answered[qi] === 'a' ? q.a : q.b} — not quite.`}
               {activeQ < questions.length - 1 && !allDone && (
                 <button onClick={() => {
                   const next = answered.findIndex((a, i) => a === null);
@@ -533,21 +532,35 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
       ))}
 
       {/* Score card */}
-      {allDone && (
-        <div style={{ marginTop: '64px', borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '48px' }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '32px' }}>Your picks</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {questions.map((q, i) => (
-              <div key={i} style={{ display: 'flex', gap: '20px', alignItems: 'baseline' }}>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', color: 'rgba(10,9,8,0.3)', minWidth: '200px' }}>{q.q}</span>
-                <span style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '15px', color: '#0A0908' }}>
-                  {answered[i] === 'a' ? q.a : q.b}
-                </span>
-              </div>
-            ))}
+      {allDone && (() => {
+        const correct = questions.filter((q, i) => answered[i] === (q as any).ans).length;
+        const pctMatch = Math.round((correct / questions.length) * 100);
+        const label = correct >= 10 ? 'You basically know me.' : correct >= 7 ? 'Solid. You\'ve been paying attention.' : correct >= 4 ? 'A few gaps. Worth exploring.' : 'We\'d have to properly meet.';
+        return (
+          <div style={{ marginTop: '64px', borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '48px' }}>
+            <div style={{ marginBottom: '48px' }}>
+              <p style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '72px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: '0 0 8px' }}>{pctMatch}<span style={{ fontSize: '28px' }}>%</span></p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '12px' }}>match with Ashfaq</p>
+              <p style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '17px', color: '#6B5E52' }}>{label}</p>
+            </div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '20px' }}>breakdown</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {questions.map((q, i) => {
+                const isCorrect = answered[i] === (q as any).ans;
+                const myPick = answered[i] === 'a' ? q.a : q.b;
+                const rightAnswer = (q as any).ans === 'a' ? q.a : q.b;
+                return (
+                  <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'baseline' }}>
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.28)', minWidth: '220px', lineHeight: 1.5 }}>{q.q}</span>
+                    <span style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '14px', color: isCorrect ? '#2C7A2C' : '#8B2A2A' }}>{myPick}</span>
+                    {!isCorrect && <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.3)', letterSpacing: '1px' }}>→ {rightAnswer}</span>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
