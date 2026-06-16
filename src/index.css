@@ -1,39 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
 
 :root {
   --cream: #F8F5F0;
   --ink: #0A0908;
   --gold: #B8974A;
   --warm-mid: #6B5E52;
-  --glass: rgba(248,245,240,0.7);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--cream);
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
   cursor: none;
 }
 
-#root {
-  height: 100vh;
-  width: 100vw;
-}
+#root { min-height: 100vh; }
 
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(184,151,74,0.3); border-radius: 10px; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -41,3 +30,6 @@ body {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+a { cursor: none; }
+button { cursor: none; }
