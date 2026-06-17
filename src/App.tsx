@@ -213,10 +213,11 @@ export default function App() {
             {/* "ashfaq" — centered between nav and video */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              paddingTop: '20px', paddingBottom: '12px',
+              paddingTop: '8px', paddingBottom: '0px',
               width: '100%',
               userSelect: 'none',
               textAlign: 'center',
+              lineHeight: 0,
             }}>
               <h1 style={{
                 fontFamily: '"Times New Roman", Times, serif',
@@ -232,7 +233,7 @@ export default function App() {
             </div>
 
             {/* Video + side labels row — 33% larger */}
-            <div style={{ position: 'relative', width: '95vw', maxWidth: '1730px', margin: '0 auto' }}>
+            <div style={{ position: 'relative', width: '95vw', maxWidth: '1730px', margin: '0 auto', lineHeight: 0, fontSize: 0 }}>
               {/* Left floating labels */}
               <div style={{
                 position: 'absolute', left: '-80px', top: '50%', transform: 'translateY(-50%)',
@@ -249,8 +250,8 @@ export default function App() {
 
               {/* Video */}
               <video ref={videoRef} autoPlay loop muted playsInline
-                style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto' }}>
-                <source src="/Ashfaq Portfolio File.webm" type="video/webm" />
+                style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto', verticalAlign: 'top' }}>
+                <source src="/main_video.webm" type="video/webm" />
               </video>
 
               {/* Right floating labels */}
@@ -270,15 +271,15 @@ export default function App() {
 
             {/* Scroll hint */}
             <div style={{
-              paddingTop: '12px', paddingBottom: '12px',
+              paddingTop: '8px', paddingBottom: '8px',
               fontFamily: "'DM Sans', sans-serif", fontSize: '8px',
               letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.22)',
             }}>scroll</div>
           </div>
 
           {/* ── ABOUT ─────────────────────────────────────────── */}
-          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '48px 48px 0' }}>
-            <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '56px' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '24px 48px 0' }}>
+            <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '40px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
 
                 <div>
