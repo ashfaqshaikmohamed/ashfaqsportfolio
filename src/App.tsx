@@ -250,9 +250,7 @@ export default function App() {
               {/* Video */}
               <video ref={videoRef} autoPlay loop muted playsInline
                 style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto' }}>
-                <source src="/The_Video_Upscaled.mp4" type="video/mp4" />
-                <source src="/background.webm" type="video/webm" />
-                <source src="/background.mp4" type="video/mp4" />
+                <source src="/main_video.webm" type="video/webm" />
               </video>
 
               {/* Right floating labels */}
