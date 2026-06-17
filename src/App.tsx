@@ -46,6 +46,9 @@ export default function App() {
   const [cursor, setCursor] = useState({ x: -200, y: -200 });
   const [cursorHover, setCursorHover] = useState(false);
   const [game, setGame] = useState<Game>('menu');
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [muted, setMuted] = useState(false);
+  const [audioStarted, setAudioStarted] = useState(false);
 
   useEffect(() => {
     videoRef.current?.play().catch(() => {});
@@ -54,6 +57,37 @@ export default function App() {
     return () => window.removeEventListener('mousemove', move);
   }, []);
 
+  // Browsers block audio autoplay with sound until a user gesture.
+  // We try immediately, and also arm a one-time listener on first
+  // click/keypress anywhere on the page to start the music quietly.
+  useEffect(() => {
+    const tryStart = () => {
+      if (audioRef.current && !audioStarted) {
+        audioRef.current.volume = 0.35;
+        audioRef.current.play().then(() => setAudioStarted(true)).catch(() => {});
+      }
+    };
+    tryStart();
+    const onFirstInteract = () => { tryStart(); };
+    window.addEventListener('click', onFirstInteract, { once: true });
+    window.addEventListener('keydown', onFirstInteract, { once: true });
+    return () => {
+      window.removeEventListener('click', onFirstInteract);
+      window.removeEventListener('keydown', onFirstInteract);
+    };
+  }, [audioStarted]);
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    if (!audioStarted) {
+      audioRef.current.volume = 0.35;
+      audioRef.current.play().then(() => setAudioStarted(true)).catch(() => {});
+      return;
+    }
+    audioRef.current.muted = !muted;
+    setMuted(!muted);
+  };
+
   const hov = {
     onMouseEnter: () => setCursorHover(true),
     onMouseLeave: () => setCursorHover(false),
@@ -61,6 +95,42 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', width: '100vw', background: '#F8F5F0', overflowX: 'hidden' }}>
+
+      {/* Background lofi/jazz audio — drop an mp3 named lofi.mp3 into /public */}
+      <audio ref={audioRef} loop preload="auto">
+        <source src="/lofi.mp3" type="audio/mpeg" />
+      </audio>
+
+      {/* Jukebox — bottom-left mute toggle */}
+      <button onClick={toggleMute} {...hov}
+        title={muted ? 'Unmute music' : 'Mute music'}
+        style={{
+          position: 'fixed', left: '24px', bottom: '24px', zIndex: 200,
+          width: '44px', height: '44px', borderRadius: '50%',
+          background: 'rgba(248,245,240,0.92)', backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(10,9,8,0.12)', cursor: 'none',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          transition: 'border-color 0.2s, transform 0.2s',
+          boxShadow: '0 2px 10px rgba(10,9,8,0.06)',
+        }}
+        onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = '#0A0908'; (e.currentTarget as HTMLElement).style.transform = 'scale(1.06)'; }}
+        onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(10,9,8,0.12)'; (e.currentTarget as HTMLElement).style.transform = 'none'; }}>
+        {muted || !audioStarted ? (
+          // muted / not-yet-started icon
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0A0908" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
+          </svg>
+        ) : (
+          // playing icon — little sound bars, animated via CSS
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0A0908" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+        )}
+      </button>
 
       {/* Custom cursor */}
       <div style={{
@@ -105,7 +175,7 @@ export default function App() {
                 borderBottom: tab === t ? '1px solid #0A0908' : '1px solid transparent',
                 paddingBottom: '2px', transition: 'all 0.2s', lineHeight: 1,
               }}>
-              {t === 'playground' ? 'play' : t}
+              {t === 'playground' ? 'quiz' : t}
             </button>
           ))}
         </div>
@@ -143,7 +213,7 @@ export default function App() {
             {/* "ashfaq" — centered between nav and video */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              paddingTop: '40px', paddingBottom: '32px',
+              paddingTop: '20px', paddingBottom: '12px',
               width: '100%',
               userSelect: 'none',
               textAlign: 'center',
@@ -161,8 +231,8 @@ export default function App() {
               </h1>
             </div>
 
-            {/* Video + side labels row */}
-            <div style={{ position: 'relative', width: '95vw', maxWidth: '1300px' }}>
+            {/* Video + side labels row — 33% larger */}
+            <div style={{ position: 'relative', width: '95vw', maxWidth: '1730px', margin: '0 auto' }}>
               {/* Left floating labels */}
               <div style={{
                 position: 'absolute', left: '-80px', top: '50%', transform: 'translateY(-50%)',
@@ -179,7 +249,8 @@ export default function App() {
 
               {/* Video */}
               <video ref={videoRef} autoPlay loop muted playsInline
-                style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply' }}>
+                style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto' }}>
+                <source src="/The_Video_Upscaled.mp4" type="video/mp4" />
                 <source src="/background.webm" type="video/webm" />
                 <source src="/background.mp4" type="video/mp4" />
               </video>
@@ -201,15 +272,15 @@ export default function App() {
 
             {/* Scroll hint */}
             <div style={{
-              paddingTop: '32px', paddingBottom: '32px',
+              paddingTop: '12px', paddingBottom: '12px',
               fontFamily: "'DM Sans', sans-serif", fontSize: '8px',
               letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.22)',
             }}>scroll</div>
           </div>
 
           {/* ── ABOUT ─────────────────────────────────────────── */}
-          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '96px 48px 0' }}>
-            <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '80px' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '48px 48px 0' }}>
+            <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '56px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
 
                 <div>
@@ -265,8 +336,8 @@ export default function App() {
           </div>
 
           {/* ── PROJECTS (homepage version — big and obvious) ─── */}
-          <div style={{ maxWidth: '900px', margin: '80px auto 0', padding: '0 48px' }}>
-            <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '64px' }}>
+          <div style={{ maxWidth: '900px', margin: '56px auto 0', padding: '0 48px' }}>
+            <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '48px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '40px' }}>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52' }}>Work</p>
                 <button {...hov} onClick={() => setTab('projects')}
@@ -413,17 +484,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
   const [revealed, setRevealed] = useState<boolean[]>(() => questions.map(() => false));
   const [activeQ, setActiveQ] = useState(0);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('playground-votes-v3');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.votes) setVotes(parsed.votes);
-        if (parsed.answered) setAnswered(parsed.answered);
-        if (parsed.revealed) setRevealed(parsed.revealed);
-      }
-    } catch {}
-  }, []);
+  // Results intentionally do NOT persist across a page refresh — fresh state every visit/reload.
 
   const vote = (qi: number, side: 'a' | 'b') => {
     if (answered[qi]) return;
@@ -433,7 +494,6 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
     setVotes(newVotes);
     setAnswered(newAnswered);
     setRevealed(newRevealed);
-    try { localStorage.setItem('playground-votes-v3', JSON.stringify({ votes: newVotes, answered: newAnswered, revealed: newRevealed })); } catch {}
     // advance to next unanswered
     const nextUnanswered = newAnswered.findIndex((a, i) => a === null && i !== qi);
     if (nextUnanswered !== -1) setTimeout(() => setActiveQ(nextUnanswered), 400);
@@ -445,7 +505,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
 
   return (
     <div style={{ maxWidth: '720px', margin: '0 auto', padding: '120px 48px 80px' }}>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Play</p>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Quiz</p>
       <h2 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '36px', fontWeight: 400, color: '#0A0908', marginBottom: '10px', letterSpacing: '-0.5px' }}>
         {allDone ? 'results.' : 'how well do you know me?'}
       </h2>
