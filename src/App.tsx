@@ -248,8 +248,13 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Video */}
-              <video ref={videoRef} autoPlay loop muted playsInline
+              {/* Video — poster shows instantly while the file streams in,
+                  preload="auto" + fetchPriority hint the browser to fetch it
+                  as early and eagerly as possible since it's above the fold */}
+              <video ref={videoRef} autoPlay loop muted playsInline preload="auto"
+                // @ts-ignore — fetchPriority is valid HTML but not yet in older React DOM typings
+                fetchpriority="high"
+                poster="/finalhope-poster.jpg"
                 style={{ width: '70%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto', verticalAlign: 'top' }}>
                 <source src="/finalhope.mp4" type="video/mp4" />
               </video>
