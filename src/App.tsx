@@ -222,7 +222,7 @@ export default function App() {
               <h1 style={{
                 fontFamily: '"Times New Roman", Times, serif',
                 fontWeight: 400,
-                fontSize: 'clamp(72px, 10vw, 148px)',
+                fontSize: 'clamp(100px, 15vw, 200px)',
                 color: '#0A0908',
                 letterSpacing: '-3px',
                 lineHeight: 1,
@@ -250,7 +250,7 @@ export default function App() {
 
               {/* Video */}
               <video ref={videoRef} autoPlay loop muted playsInline
-                style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto', verticalAlign: 'top' }}>
+                style={{ width: '70%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto', verticalAlign: 'top' }}>
                 <source src="/finalhope.mp4" type="video/mp4" />
               </video>
 
@@ -470,7 +470,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
     { q: 'Does Ashfaq prefer building solo or with a team?', a: 'Solo', b: 'Team', ans: 'b' },
     { q: 'What\'s the AI model powering CityPulse\'s image triage?', a: 'GPT-4V', b: 'Gemini Flash', ans: 'b' },
     { q: 'Does Ashfaq care more about clean UI or clean architecture?', a: 'Clean UI', b: 'Clean architecture', ans: 'b' },
-    { q: 'What type of problems does Ashfaq gravitate toward?', a: 'Well-defined', b: 'No obvious answer', ans: 'b' },
+    { q: 'What type of donut is Ashfaq\'s favorite?', a: 'Jelly', b: 'Boston Creme', ans: 'b' },
     { q: 'What does Receipt use for its OCR?', a: 'Tesseract.js', b: 'AWS Textract', ans: 'a' },
     { q: 'What\'s Ashfaq\'s hometown?', a: 'Newark', b: 'Jersey City', ans: 'b' },
     { q: 'Which does Ashfaq lean toward: ML or infrastructure?', a: 'ML', b: 'Infrastructure', ans: 'a' },
