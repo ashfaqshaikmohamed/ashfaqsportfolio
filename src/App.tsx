@@ -251,7 +251,7 @@ export default function App() {
               {/* Video */}
               <video ref={videoRef} autoPlay loop muted playsInline
                 style={{ width: '100%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto', verticalAlign: 'top' }}>
-                <source src="/Ashfaq Portfolio File" type="video/webm" />
+                <source src="/Ashfaq Portfolio File.mp4" type="video/mp4" />
               </video>
 
               {/* Right floating labels */}
