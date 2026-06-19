@@ -40,31 +40,53 @@ const projects = [
 
 const stack = ['Python', 'React', 'Java', 'JavaScript', 'TypeScript', 'Rust', 'C', 'Node.js'];
 
-// Typewriter effect — types `text` out one character at a time on mount,
-// after an optional start delay. Returns the partial string plus a `done`
-// flag so callers can stop the blinking caret once typing finishes.
-function useTypewriter(text: string, speed = 55, startDelay = 200) {
-  const [out, setOut] = useState('');
+// Smooth letter-by-letter reveal: every character is rendered immediately
+// (so there's zero layout shift / jumping cursor), but each one fades in
+// from a soft blur with a gentle upward drift, staggered left to right.
+// This reads as a "type-in" without the rigidity of a literal typewriter.
+function HeroReveal({
+  text,
+  charDelay = 85,     // ms between each letter starting its reveal
+  charDuration = 900, // ms each letter takes to fully resolve
+  startDelay = 450,   // ms before the first letter begins
+}: { text: string; charDelay?: number; charDuration?: number; startDelay?: number }) {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    let i = 0;
-    let interval: ReturnType<typeof setInterval>;
-    const start = setTimeout(() => {
-      interval = setInterval(() => {
-        i++;
-        setOut(text.slice(0, i));
-        if (i >= text.length) {
-          clearInterval(interval);
-          setDone(true);
-        }
-      }, speed);
-    }, startDelay);
+    const total = startDelay + text.length * charDelay + charDuration;
+    const t = setTimeout(() => setDone(true), total);
+    return () => clearTimeout(t);
+  }, [text, charDelay, charDuration, startDelay]);
 
-    return () => { clearTimeout(start); clearInterval(interval); };
-  }, [text, speed, startDelay]);
-
-  return { out, done };
+  return (
+    <>
+      {text.split('').map((ch, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'inline-block',
+            opacity: 0,
+            filter: 'blur(6px)',
+            transform: 'translateY(10px)',
+            animation: `letterReveal ${charDuration}ms cubic-bezier(0.16,1,0.3,1) ${startDelay + i * charDelay}ms forwards`,
+          }}
+        >
+          {ch === ' ' ? '\u00A0' : ch}
+        </span>
+      ))}
+      <span style={{
+        display: 'inline-block',
+        width: '0.05em',
+        marginLeft: '6px',
+        background: '#0A0908',
+        height: '0.74em',
+        verticalAlign: '-0.06em',
+        opacity: done ? 0 : 1,
+        transition: 'opacity 0.5s ease',
+        animation: done ? 'none' : 'caretBlink 1.1s steps(2) infinite',
+      }} />
+    </>
+  );
 }
 
 export default function App() {
@@ -76,7 +98,6 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [muted, setMuted] = useState(false);
   const [audioStarted, setAudioStarted] = useState(false);
-  const { out: heroText, done: heroDone } = useTypewriter("hey i'm ashfaq!", 55, 250);
 
   useEffect(() => {
     videoRef.current?.play().catch(() => {});
@@ -238,10 +259,11 @@ export default function App() {
             position: 'relative',
           }}>
 
-            {/* "ashfaq" — left edge aligned with the video below it */}
+            {/* "ashfaq" — left edge softly aligned with the video below it,
+                with generous vertical air above and below */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
-              paddingTop: '8px', paddingBottom: '0px',
+              paddingTop: '28px', paddingBottom: '8px',
               width: '95vw', maxWidth: '1730px', margin: '0 auto',
               userSelect: 'none',
               textAlign: 'left',
@@ -255,19 +277,10 @@ export default function App() {
                 letterSpacing: '-3px',
                 lineHeight: 1,
                 margin: 0, padding: 0,
+                paddingLeft: '6px',
                 whiteSpace: 'nowrap',
               }}>
-                {heroText}
-                <span style={{
-                  display: 'inline-block',
-                  width: '0.06em',
-                  marginLeft: '4px',
-                  background: '#0A0908',
-                  opacity: heroDone ? 0 : 1,
-                  animation: heroDone ? 'none' : 'caretBlink 0.9s steps(2) infinite',
-                  height: '0.78em',
-                  verticalAlign: '-0.08em',
-                }} />
+                <HeroReveal text="hey i'm ashfaq!" />
               </h1>
             </div>
 
