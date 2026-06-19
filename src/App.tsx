@@ -46,10 +46,11 @@ const stack = ['Python', 'React', 'Java', 'JavaScript', 'TypeScript', 'Rust', 'C
 // This reads as a "type-in" without the rigidity of a literal typewriter.
 function HeroReveal({
   text,
-  charDelay = 85,     // ms between each letter starting its reveal
-  charDuration = 900, // ms each letter takes to fully resolve
-  startDelay = 450,   // ms before the first letter begins
-}: { text: string; charDelay?: number; charDuration?: number; startDelay?: number }) {
+  charDelay = 60,     // ms between each letter starting its reveal
+  charDuration = 650, // ms each letter takes to fully resolve
+  startDelay = 300,   // ms before the first letter begins
+  showCursor = true,  // render the trailing blinking caret
+}: { text: string; charDelay?: number; charDuration?: number; startDelay?: number; showCursor?: boolean }) {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
@@ -66,25 +67,27 @@ function HeroReveal({
           style={{
             display: 'inline-block',
             opacity: 0,
-            filter: 'blur(6px)',
-            transform: 'translateY(10px)',
+            filter: 'blur(4px)',
+            transform: 'translateY(8px)',
             animation: `letterReveal ${charDuration}ms cubic-bezier(0.16,1,0.3,1) ${startDelay + i * charDelay}ms forwards`,
           }}
         >
           {ch === ' ' ? '\u00A0' : ch}
         </span>
       ))}
-      <span style={{
-        display: 'inline-block',
-        width: '0.05em',
-        marginLeft: '6px',
-        background: '#0A0908',
-        height: '0.74em',
-        verticalAlign: '-0.06em',
-        opacity: done ? 0 : 1,
-        transition: 'opacity 0.5s ease',
-        animation: done ? 'none' : 'caretBlink 1.1s steps(2) infinite',
-      }} />
+      {showCursor && (
+        <span style={{
+          display: 'inline-block',
+          width: '0.05em',
+          marginLeft: '6px',
+          background: '#0A0908',
+          height: '0.74em',
+          verticalAlign: '-0.06em',
+          opacity: done ? 0 : 1,
+          transition: 'opacity 0.5s ease',
+          animation: done ? 'none' : 'caretBlink 1.1s steps(2) infinite',
+        }} />
+      )}
     </>
   );
 }
@@ -259,47 +262,68 @@ export default function App() {
             position: 'relative',
           }}>
 
-            {/* "ashfaq" — left edge softly aligned with the video below it,
-                with generous vertical air above and below */}
+            {/* Hero text block — eyebrow line + headline, left edge
+                aligned with the video below it. Eyebrow carries the
+                identity facts that used to float beside the video;
+                the headline carries the charisma. */}
             <div style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
-              paddingTop: '28px', paddingBottom: '8px',
               width: '95vw', maxWidth: '1730px', margin: '0 auto',
-              userSelect: 'none',
-              textAlign: 'left',
-              lineHeight: 0,
+              paddingTop: '32px', paddingBottom: '24px',
             }}>
-              <h1 style={{
-                fontFamily: '"Times New Roman", Times, serif',
-                fontWeight: 400,
-                fontSize: 'clamp(100px, 15vw, 200px)',
-                color: '#0A0908',
-                letterSpacing: '-3px',
-                lineHeight: 1,
-                margin: 0, padding: 0,
-                paddingLeft: '6px',
-                whiteSpace: 'nowrap',
-              }}>
-                <HeroReveal text="hey i'm ashfaq!" />
-              </h1>
+              <div style={{ maxWidth: '900px', paddingLeft: '6px' }}>
+                <p style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: '13px', fontWeight: 500,
+                  letterSpacing: '0.3px',
+                  color: '#6B5E52',
+                  marginBottom: '22px',
+                  userSelect: 'none',
+                }}>
+                  <HeroReveal
+                    text="ece + math · rutgers, nb · class of 2028 — open to summer '27 internships"
+                    charDelay={14} charDuration={420} startDelay={150}
+                    showCursor={false}
+                  />
+                </p>
+
+                <h1 style={{ margin: 0, padding: 0, userSelect: 'none' }}>
+                  <span style={{
+                    display: 'block',
+                    fontFamily: '"Times New Roman", Times, serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(42px, 6.4vw, 88px)',
+                    color: '#0A0908',
+                    letterSpacing: '-1.5px',
+                    lineHeight: 1.05,
+                  }}>
+                    <HeroReveal
+                      text="hey, i'm ashfaq."
+                      charDelay={55} charDuration={650} startDelay={1750}
+                      showCursor={false}
+                    />
+                  </span>
+                  <span style={{
+                    display: 'block',
+                    fontFamily: '"Times New Roman", Times, serif',
+                    fontStyle: 'italic',
+                    fontWeight: 400,
+                    fontSize: 'clamp(26px, 4vw, 52px)',
+                    color: 'rgba(10,9,8,0.5)',
+                    letterSpacing: '-0.3px',
+                    lineHeight: 1.15,
+                    marginTop: '12px',
+                  }}>
+                    <HeroReveal
+                      text="i build things that actually ship."
+                      charDelay={40} charDuration={550} startDelay={2900}
+                    />
+                  </span>
+                </h1>
+              </div>
             </div>
 
-            {/* Video + side labels row — 33% larger */}
+            {/* Video row */}
             <div style={{ position: 'relative', width: '95vw', maxWidth: '1730px', margin: '0 auto', lineHeight: 0, fontSize: 0 }}>
-              {/* Left floating labels */}
-              <div style={{
-                position: 'absolute', left: '-80px', top: '50%', transform: 'translateY(-50%)',
-                display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3,
-              }}>
-                {['ECE + Math', 'Rutgers · NB', 'Class of 2028'].map(tag => (
-                  <span key={tag} style={{
-                    fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
-                    letterSpacing: '1.8px', textTransform: 'uppercase',
-                    color: 'rgba(10,9,8,0.35)', whiteSpace: 'nowrap', display: 'block',
-                  }}>{tag}</span>
-                ))}
-              </div>
-
               {/* Video — poster shows instantly while the file streams in,
                   preload="auto" + fetchPriority hint the browser to fetch it
                   as early and eagerly as possible since it's above the fold */}
@@ -310,20 +334,6 @@ export default function App() {
                 style={{ width: '70%', height: 'auto', display: 'block', mixBlendMode: 'multiply', margin: '0 auto', verticalAlign: 'top' }}>
                 <source src="/finalhope.mp4" type="video/mp4" />
               </video>
-
-              {/* Right floating labels */}
-              <div style={{
-                position: 'absolute', right: '-80px', top: '50%', transform: 'translateY(-50%)',
-                display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 3, alignItems: 'flex-end',
-              }}>
-                {['Full-Stack', 'ML', 'Infra'].map(tag => (
-                  <span key={tag} style={{
-                    fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 500,
-                    letterSpacing: '1.8px', textTransform: 'uppercase',
-                    color: 'rgba(10,9,8,0.25)', whiteSpace: 'nowrap', display: 'block',
-                  }}>{tag}</span>
-                ))}
-              </div>
             </div>
 
             {/* Scroll hint */}
