@@ -259,7 +259,7 @@ export default function App() {
                   userSelect: 'none',
                 }}>
                   <HeroReveal
-                    text="rutgers · ece + math · class of 2028 — looking for summer '27 internships & good problems to solve"
+                    text="ece + math · rutgers nb'28 — reach out, don't be a stranger :)"
                     charDelay={13} charDuration={550} startDelay={150}
                   />
                 </p>
@@ -291,7 +291,7 @@ export default function App() {
                     marginTop: '12px',
                   }}>
                     <HeroReveal
-                      text="i'd rather build it than talk about it."
+                      text="i chase problems that don't have obvious answers yet."
                       charDelay={38} charDuration={700} startDelay={3050}
                     />
                   </span>
