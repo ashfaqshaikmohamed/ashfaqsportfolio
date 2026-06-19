@@ -40,6 +40,33 @@ const projects = [
 
 const stack = ['Python', 'React', 'Java', 'JavaScript', 'TypeScript', 'Rust', 'C', 'Node.js'];
 
+// Typewriter effect — types `text` out one character at a time on mount,
+// after an optional start delay. Returns the partial string plus a `done`
+// flag so callers can stop the blinking caret once typing finishes.
+function useTypewriter(text: string, speed = 55, startDelay = 200) {
+  const [out, setOut] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    let i = 0;
+    let interval: ReturnType<typeof setInterval>;
+    const start = setTimeout(() => {
+      interval = setInterval(() => {
+        i++;
+        setOut(text.slice(0, i));
+        if (i >= text.length) {
+          clearInterval(interval);
+          setDone(true);
+        }
+      }, speed);
+    }, startDelay);
+
+    return () => { clearTimeout(start); clearInterval(interval); };
+  }, [text, speed, startDelay]);
+
+  return { out, done };
+}
+
 export default function App() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [tab, setTab] = useState<Tab>('home');
@@ -49,6 +76,7 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [muted, setMuted] = useState(false);
   const [audioStarted, setAudioStarted] = useState(false);
+  const { out: heroText, done: heroDone } = useTypewriter("hey i'm ashfaq!", 55, 250);
 
   useEffect(() => {
     videoRef.current?.play().catch(() => {});
@@ -210,13 +238,13 @@ export default function App() {
             position: 'relative',
           }}>
 
-            {/* "ashfaq" — centered between nav and video */}
+            {/* "ashfaq" — left edge aligned with the video below it */}
             <div style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
               paddingTop: '8px', paddingBottom: '0px',
-              width: '100%',
+              width: '95vw', maxWidth: '1730px', margin: '0 auto',
               userSelect: 'none',
-              textAlign: 'center',
+              textAlign: 'left',
               lineHeight: 0,
             }}>
               <h1 style={{
@@ -227,8 +255,19 @@ export default function App() {
                 letterSpacing: '-3px',
                 lineHeight: 1,
                 margin: 0, padding: 0,
+                whiteSpace: 'nowrap',
               }}>
-                hey i'm ashfaq!
+                {heroText}
+                <span style={{
+                  display: 'inline-block',
+                  width: '0.06em',
+                  marginLeft: '4px',
+                  background: '#0A0908',
+                  opacity: heroDone ? 0 : 1,
+                  animation: heroDone ? 'none' : 'caretBlink 0.9s steps(2) infinite',
+                  height: '0.78em',
+                  verticalAlign: '-0.08em',
+                }} />
               </h1>
             </div>
 
