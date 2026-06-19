@@ -41,24 +41,16 @@ const projects = [
 const stack = ['Python', 'React', 'Java', 'JavaScript', 'TypeScript', 'Rust', 'C', 'Node.js'];
 
 // Smooth letter-by-letter reveal: every character is rendered immediately
-// (so there's zero layout shift / jumping cursor), but each one fades in
-// from a soft blur with a gentle upward drift, staggered left to right.
-// This reads as a "type-in" without the rigidity of a literal typewriter.
+// (so there's zero layout shift), but each one fades in from a soft blur
+// with a gentle upward drift, staggered left to right and overlapping
+// slightly so the motion reads as one continuous wave rather than
+// discrete pops. No cursor — just the text settling into place.
 function HeroReveal({
   text,
-  charDelay = 60,     // ms between each letter starting its reveal
-  charDuration = 650, // ms each letter takes to fully resolve
+  charDelay = 55,     // ms between each letter starting its reveal
+  charDuration = 800, // ms each letter takes to fully resolve
   startDelay = 300,   // ms before the first letter begins
-  showCursor = true,  // render the trailing blinking caret
-}: { text: string; charDelay?: number; charDuration?: number; startDelay?: number; showCursor?: boolean }) {
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    const total = startDelay + text.length * charDelay + charDuration;
-    const t = setTimeout(() => setDone(true), total);
-    return () => clearTimeout(t);
-  }, [text, charDelay, charDuration, startDelay]);
-
+}: { text: string; charDelay?: number; charDuration?: number; startDelay?: number }) {
   return (
     <>
       {text.split('').map((ch, i) => (
@@ -67,27 +59,14 @@ function HeroReveal({
           style={{
             display: 'inline-block',
             opacity: 0,
-            filter: 'blur(4px)',
-            transform: 'translateY(8px)',
-            animation: `letterReveal ${charDuration}ms cubic-bezier(0.16,1,0.3,1) ${startDelay + i * charDelay}ms forwards`,
+            filter: 'blur(3px)',
+            transform: 'translateY(5px)',
+            animation: `letterReveal ${charDuration}ms cubic-bezier(0.22,0.61,0.36,1) ${startDelay + i * charDelay}ms forwards`,
           }}
         >
           {ch === ' ' ? '\u00A0' : ch}
         </span>
       ))}
-      {showCursor && (
-        <span style={{
-          display: 'inline-block',
-          width: '0.05em',
-          marginLeft: '6px',
-          background: '#0A0908',
-          height: '0.74em',
-          verticalAlign: '-0.06em',
-          opacity: done ? 0 : 1,
-          transition: 'opacity 0.5s ease',
-          animation: done ? 'none' : 'caretBlink 1.1s steps(2) infinite',
-        }} />
-      )}
     </>
   );
 }
@@ -280,9 +259,8 @@ export default function App() {
                   userSelect: 'none',
                 }}>
                   <HeroReveal
-                    text="ece + math · rutgers, nb · class of 2028 — open to summer '27 internships"
-                    charDelay={14} charDuration={420} startDelay={150}
-                    showCursor={false}
+                    text="rutgers · ece + math · class of 2028 — looking for summer '27 internships & good problems to solve"
+                    charDelay={13} charDuration={550} startDelay={150}
                   />
                 </p>
 
@@ -297,9 +275,8 @@ export default function App() {
                     lineHeight: 1.05,
                   }}>
                     <HeroReveal
-                      text="hey, i'm ashfaq."
-                      charDelay={55} charDuration={650} startDelay={1750}
-                      showCursor={false}
+                      text="hey, my name's ashfaq."
+                      charDelay={50} charDuration={800} startDelay={1900}
                     />
                   </span>
                   <span style={{
@@ -314,8 +291,8 @@ export default function App() {
                     marginTop: '12px',
                   }}>
                     <HeroReveal
-                      text="i build things that actually ship."
-                      charDelay={40} charDuration={550} startDelay={2900}
+                      text="i'd rather build it than talk about it."
+                      charDelay={38} charDuration={700} startDelay={3050}
                     />
                   </span>
                 </h1>

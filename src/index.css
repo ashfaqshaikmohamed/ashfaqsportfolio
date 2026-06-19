@@ -43,11 +43,6 @@ body {
   to   { opacity: 1; }
 }
 
-@keyframes caretBlink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
-}
-
 @keyframes letterReveal {
   from {
     opacity: 0;
