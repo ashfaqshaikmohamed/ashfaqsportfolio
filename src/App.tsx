@@ -291,7 +291,7 @@ export default function App() {
                     marginTop: '12px',
                   }}>
                     <HeroReveal
-                      text="i get bored fast, so i build a lot."
+                      text="i enjoy creating, so i build a lot."
                       charDelay={38} charDuration={700} startDelay={3050}
                     />
                   </span>
