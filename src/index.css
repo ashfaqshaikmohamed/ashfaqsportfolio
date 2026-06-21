@@ -58,3 +58,62 @@ body {
 
 a { cursor: none; }
 button { cursor: none; }
+
+/* ── Touch devices: restore the native cursor and hide the custom dot.
+   !important is required here because inline styles otherwise win the
+   cascade over normal-weight rules — this is the one place we need it. */
+@media (hover: none), (pointer: coarse) {
+  body, a, button { cursor: auto !important; }
+  .custom-cursor-dot { display: none !important; }
+}
+
+/* ── Mobile layout adjustments ───────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Shared side padding used across every full-width section */
+  .section-padded { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Nav: tighter padding/gaps, tabs scroll instead of breaking */
+  .site-nav { padding: 0 14px !important; grid-template-columns: 44px 1fr 44px !important; }
+  .site-nav-tabs {
+    gap: 16px !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .site-nav-social { gap: 10px !important; }
+
+  /* Hero */
+  .hero-text-inner { padding-left: 0 !important; }
+  .hero-eyebrow { font-size: 12px !important; }
+  .hero-video { width: 92% !important; }
+
+  /* About — stack the two-column grid */
+  .about-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .about-grid-second { padding-top: 0 !important; }
+
+  /* Project cards — stack title/desc above stats, left-align stats */
+  .project-card-inner { padding: 28px 22px !important; }
+  .project-card-row { flex-direction: column !important; }
+  .project-card-stats {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    padding-left: 0 !important;
+    margin-top: 22px !important;
+    gap: 18px !important;
+  }
+  .project-card-stats > div { text-align: left !important; }
+
+  /* Footer — stack instead of space-between */
+  .footer-row { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+
+  /* Quiz */
+  .quiz-question-text { font-size: 21px !important; }
+  .quiz-option-btn { padding: 18px 14px !important; }
+
+  /* Arcade — one game card per row */
+  .arcade-grid { grid-template-columns: 1fr !important; }
+
+  /* Game shells (Pong/Snake/Tetris) — reclaim side padding */
+  .game-shell-wrap { padding: 90px 16px 60px !important; }
+}

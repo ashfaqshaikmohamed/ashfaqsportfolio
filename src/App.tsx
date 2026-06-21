@@ -83,6 +83,11 @@ export default function App() {
 
   useEffect(() => {
     videoRef.current?.play().catch(() => {});
+    // On touch devices there's no real cursor to track — skip the
+    // mousemove listener entirely rather than paying for state updates
+    // on stray pointer events that never amount to anything visible.
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (isTouch) return;
     const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
     window.addEventListener('mousemove', move);
     return () => window.removeEventListener('mousemove', move);
@@ -163,8 +168,8 @@ export default function App() {
         )}
       </button>
 
-      {/* Custom cursor */}
-      <div style={{
+      {/* Custom cursor — hidden on touch devices via CSS (see index.css) */}
+      <div className="custom-cursor-dot" style={{
         position: 'fixed', left: cursor.x, top: cursor.y, zIndex: 9999,
         width: cursorHover ? 36 : 7, height: cursorHover ? 36 : 7,
         borderRadius: '50%',
@@ -176,7 +181,7 @@ export default function App() {
       }} />
 
       {/* NAV */}
-      <nav style={{
+      <nav className="site-nav" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         display: 'grid', gridTemplateColumns: '60px 1fr 60px',
         alignItems: 'center',
@@ -193,8 +198,9 @@ export default function App() {
             letterSpacing: '-0.5px', lineHeight: 1, userSelect: 'none', padding: 0,
           }}>a</button>
 
-        {/* Nav tabs — center */}
-        <div style={{ display: 'flex', gap: '32px', alignItems: 'center', justifyContent: 'center' }}>
+        {/* Nav tabs — center; scrolls horizontally instead of breaking
+            layout if it doesn't fully fit a narrow screen */}
+        <div className="site-nav-tabs" style={{ display: 'flex', gap: '32px', alignItems: 'center', justifyContent: 'center' }}>
           {(['home','projects','playground','arcade'] as Tab[]).map(t => (
             <button key={t} {...hov}
               onClick={() => { setTab(t); if (t === 'arcade') setGame('menu'); }}
@@ -205,6 +211,7 @@ export default function App() {
                 color: tab === t ? '#0A0908' : '#6B5E52',
                 borderBottom: tab === t ? '1px solid #0A0908' : '1px solid transparent',
                 paddingBottom: '2px', transition: 'all 0.2s', lineHeight: 1,
+                flexShrink: 0,
               }}>
               {t === 'playground' ? 'quiz' : t}
             </button>
@@ -212,7 +219,7 @@ export default function App() {
         </div>
 
         {/* Social icons */}
-        <div style={{ display: 'flex', gap: '14px', alignItems: 'center', justifyContent: 'flex-end' }}>
+        <div className="site-nav-social" style={{ display: 'flex', gap: '14px', alignItems: 'center', justifyContent: 'flex-end' }}>
           {[
             { href: 'https://github.com/ashfaqshaikmohamed', title: 'GitHub', svg: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> },
             { href: 'https://www.linkedin.com/in/ashfaqece/', title: 'LinkedIn', svg: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
@@ -249,13 +256,14 @@ export default function App() {
               width: '95vw', maxWidth: '1730px', margin: '0 auto',
               paddingTop: '32px', paddingBottom: '24px',
             }}>
-              <div style={{ maxWidth: '900px', paddingLeft: '6px' }}>
-                <p style={{
+              <div className="hero-text-inner" style={{ maxWidth: '900px', paddingLeft: '6px' }}>
+                <p className="hero-eyebrow" style={{
                   fontFamily: "'DM Sans', sans-serif",
                   fontSize: '13px', fontWeight: 500,
                   letterSpacing: '0.3px',
                   color: '#6B5E52',
                   marginBottom: '22px',
+                  lineHeight: 1.6,
                   userSelect: 'none',
                 }}>
                   <HeroReveal
@@ -305,6 +313,7 @@ export default function App() {
                   preload="auto" + fetchPriority hint the browser to fetch it
                   as early and eagerly as possible since it's above the fold */}
               <video ref={videoRef} autoPlay loop muted playsInline preload="auto"
+                className="hero-video"
                 // @ts-ignore — fetchPriority is valid HTML but not yet in older React DOM typings
                 fetchpriority="high"
                 poster="/finalhope-poster.jpg"
@@ -322,9 +331,9 @@ export default function App() {
           </div>
 
           {/* ── ABOUT ─────────────────────────────────────────── */}
-          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '24px 48px 0' }}>
+          <div className="section-padded" style={{ maxWidth: '900px', margin: '0 auto', padding: '24px 48px 0' }}>
             <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '40px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+              <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
 
                 <div>
                   <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '28px' }}>About</p>
@@ -350,7 +359,7 @@ export default function App() {
                   </a>
                 </div>
 
-                <div style={{ paddingTop: '37px' }}>
+                <div className="about-grid-second" style={{ paddingTop: '37px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '13px', marginBottom: '36px' }}>
                     {[
                       { label: 'Degree', value: 'B.Eng ECE & Mathematics' },
@@ -379,7 +388,7 @@ export default function App() {
           </div>
 
           {/* ── PROJECTS (homepage version — big and obvious) ─── */}
-          <div style={{ maxWidth: '900px', margin: '56px auto 0', padding: '0 48px' }}>
+          <div className="section-padded" style={{ maxWidth: '900px', margin: '56px auto 0', padding: '0 48px' }}>
             <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '48px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '40px' }}>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52' }}>Work</p>
@@ -396,6 +405,7 @@ export default function App() {
                     style={{ textDecoration: 'none', display: 'block' }}
                     {...hov}>
                     <div
+                      className="project-card-inner"
                       style={{
                         padding: '40px 40px',
                         border: '1px solid rgba(10,9,8,0.08)',
@@ -412,7 +422,7 @@ export default function App() {
                         (e.currentTarget as HTMLElement).style.background = '#F8F5F0';
                         (e.currentTarget as HTMLElement).style.transform = 'none';
                       }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div className="project-card-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '10px' }}>
                             <h3 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '36px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: 0 }}>{p.title}</h3>
@@ -426,7 +436,7 @@ export default function App() {
                             ))}
                           </div>
                         </div>
-                        <div style={{ paddingLeft: '32px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-end' }}>
+                        <div className="project-card-stats" style={{ paddingLeft: '32px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-end' }}>
                           {p.stats.map(s => (
                             <div key={s.l} style={{ textAlign: 'right' }}>
                               <div style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '28px', color: '#0A0908', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
@@ -444,7 +454,7 @@ export default function App() {
           </div>
 
           {/* FOOTER */}
-          <div style={{ maxWidth: '900px', margin: '80px auto 0', padding: '32px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(10,9,8,0.06)' }}>
+          <div className="section-padded footer-row" style={{ maxWidth: '900px', margin: '80px auto 0', padding: '32px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(10,9,8,0.06)' }}>
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>Ashfaq Shaik-Mohamed · 2025</span>
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.2)' }}>Jersey City, NJ</span>
           </div>
@@ -453,7 +463,7 @@ export default function App() {
 
       {/* ── PROJECTS (full page) ─────────────────────────────── */}
       {tab === 'projects' && (
-        <div style={{ maxWidth: '860px', margin: '0 auto', padding: '120px 48px 80px' }}>
+        <div className="section-padded" style={{ maxWidth: '860px', margin: '0 auto', padding: '120px 48px 80px' }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '56px' }}>Selected Work</p>
           {projects.map((p, i) => (
             <div key={i} style={{ borderTop: '1px solid rgba(10,9,8,0.08)', padding: '52px 0' }}>
@@ -547,7 +557,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
   const allDone = answered.every(a => a !== null);
 
   return (
-    <div style={{ maxWidth: '720px', margin: '0 auto', padding: '120px 48px 80px' }}>
+    <div className="section-padded" style={{ maxWidth: '720px', margin: '0 auto', padding: '120px 48px 80px' }}>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Quiz</p>
       <h2 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '36px', fontWeight: 400, color: '#0A0908', marginBottom: '10px', letterSpacing: '-0.5px' }}>
         {allDone ? 'results.' : 'how well do you know me?'}
@@ -576,8 +586,8 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
       {/* Active question */}
       {questions.map((q, qi) => qi !== activeQ ? null : (
         <div key={qi} style={{ animation: 'fadeUp 0.25s ease' }}>
-          <p style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '26px', color: '#0A0908', marginBottom: '32px', lineHeight: 1.3 }}>{q.q}</p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
+          <p className="quiz-question-text" style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '26px', color: '#0A0908', marginBottom: '32px', lineHeight: 1.3 }}>{q.q}</p>
+          <div className="quiz-options-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
             {(['a','b'] as const).map(side => {
               const label = side === 'a' ? q.a : q.b;
               const count = side === 'a' ? votes[qi].a : votes[qi].b;
@@ -587,6 +597,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
               return (
                 <button key={side} onClick={() => vote(qi, side)} {...hov}
                   disabled={!!answered[qi]}
+                  className="quiz-option-btn"
                   style={{
                     background: 'none', cursor: answered[qi] ? 'default' : 'none',
                     border: `1px solid ${isMyPick ? '#0A0908' : 'rgba(10,9,8,0.12)'}`,
@@ -678,14 +689,14 @@ function ArcadeTab({ game, setGame, setCursorHover }: { game: Game; setGame: (g:
   if (game === 'tetris') return <TetrisGame onBack={() => setGame('menu')} />;
 
   return (
-    <div style={{ maxWidth: '860px', margin: '0 auto', padding: '120px 48px 80px' }}>
+    <div className="section-padded" style={{ maxWidth: '860px', margin: '0 auto', padding: '120px 48px 80px' }}>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Arcade</p>
       <h2 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '42px', fontWeight: 400, color: '#0A0908', marginBottom: '12px', letterSpacing: '-0.5px' }}>take a break.</h2>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.4)', lineHeight: 1.7, maxWidth: '480px', marginBottom: '56px' }}>
         three games. no scores saved. no pressure. built from scratch, right here in the browser.
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
+      <div className="arcade-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
         {[
           { id: 'pong' as Game, title: 'Pong', tag: '1972', desc: 'You vs. a machine that knows you too well.', controls: '↑ ↓ to move',
             icon: <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="4" y="14" width="4" height="20" fill="currentColor" opacity="0.8"/><rect x="40" y="14" width="4" height="20" fill="currentColor" opacity="0.8"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg> },
@@ -831,12 +842,12 @@ function TetrisGame({ onBack }: { onBack: () => void }) {
     requestAnimationFrame(draw);
     return()=>{clearInterval(iv);window.removeEventListener('keydown',onKey);};
   },[]);
-  return <GameShell title="Tetris" hint="← → move · ↑ rotate · ↓ soft drop · Space instant drop" onBack={onBack}><canvas ref={canvasRef} width={COLS*CELL} height={ROWS*CELL} style={{border:'1px solid rgba(10,9,8,0.1)'}}/></GameShell>;
+  return <GameShell title="Tetris" hint="← → move · ↑ rotate · ↓ soft drop · Space instant drop" onBack={onBack}><canvas ref={canvasRef} width={COLS*CELL} height={ROWS*CELL} style={{border:'1px solid rgba(10,9,8,0.1)',maxWidth:'100%'}}/></GameShell>;
 }
 
 function GameShell({ title, hint, onBack, children }: { title: string; hint: string; onBack: () => void; children: React.ReactNode }) {
   return (
-    <div style={{ display:'flex',flexDirection:'column',alignItems:'center',padding:'100px 48px 80px' }}>
+    <div className="section-padded game-shell-wrap" style={{ display:'flex',flexDirection:'column',alignItems:'center',padding:'100px 48px 80px' }}>
       <div style={{ width:'100%',maxWidth:'860px',display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'32px' }}>
         <button onClick={onBack} style={{ background:'none',border:'none',cursor:'pointer',fontFamily:"'DM Sans',sans-serif",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',color:'#6B5E52' }}>← Back</button>
         <span style={{ fontFamily:'"Times New Roman", Times, serif',fontSize:'16px',color:'#0A0908',fontWeight:400 }}>{title}</span>
