@@ -413,20 +413,25 @@ export default function App() {
           {/* ── ABOUT ─────────────────────────────────────────── */}
           <div className="section-padded" style={{ maxWidth: '900px', margin: '0 auto', padding: '24px 48px 0' }}>
             <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '40px' }}>
-              <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '28px' }}>About</p>
 
+              <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '64px', alignItems: 'start' }}>
+
+                {/* Narrative column */}
                 <div>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '28px' }}>About</p>
                   <p style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 500,
-                    fontSize: '16px', color: '#0A0908', lineHeight: 1.8, marginBottom: '18px',
+                    fontFamily: "'Outfit', sans-serif",
+                    fontStyle: 'italic', fontWeight: 400,
+                    fontSize: 'clamp(20px, 2vw, 24px)',
+                    color: '#0A0908', lineHeight: 1.5,
+                    marginBottom: '20px',
                   }}>
-                    I study ECE and Math at Rutgers University, and I like building things end to end — from the database up to the pixel you tap.
+                    I study ECE and Math at Rutgers, and I like building things end to end — from the database up to the pixel you tap.
                   </p>
                   <p style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9, marginBottom: '28px',
+                    fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9,
+                    marginBottom: '24px',
                   }}>
                     Most of my time lately has gone into full-stack apps, AI agents, and the infrastructure that keeps them running — comfortable moving between Python and TypeScript for the app layer, dropping into Java or C when something needs to run faster or closer to the metal, and picking up Rust whenever I want to actually understand what's happening underneath. Outside of school I build for the fun of figuring something out.
                   </p>
@@ -440,24 +445,28 @@ export default function App() {
                   </a>
                 </div>
 
-                <div className="about-grid-second" style={{ paddingTop: '37px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '13px', marginBottom: '36px' }}>
+                {/* Facts + stack column — a thin vertical rule is the only
+                    divider; facts sit in a 2×2 grid with Outfit-weight
+                    values so they read as a showcase, not a data table. */}
+                <div className="about-side" style={{ borderLeft: '1px solid rgba(10,9,8,0.08)', paddingLeft: '36px' }}>
+                  <div className="about-facts" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px 20px', marginBottom: '40px' }}>
                     {[
-                      { label: 'Degree', value: 'B.E. Electrical and Computer Engineering' },
-                      { label: 'School', value: 'Rutgers University' },
-                      { label: 'Class',  value: '2028' },
-                      { label: 'Focus',  value: 'Full-Stack · AI · Infra' },
+                      { label: 'Studying', value: 'ECE + Math' },
+                      { label: 'School',   value: 'Rutgers' },
+                      { label: 'Class',    value: "'28" },
+                      { label: 'Focus',    value: 'Full-Stack · AI' },
                     ].map(item => (
-                      <div key={item.label} style={{ display: 'flex', gap: '20px', alignItems: 'baseline' }}>
-                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', minWidth: '48px', flexShrink: 0 }}>{item.label}</span>
-                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#0A0908' }}>{item.value}</span>
+                      <div key={item.label}>
+                        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.5)', marginBottom: '7px' }}>{item.label}</div>
+                        <div style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: '17px', color: '#0A0908', lineHeight: 1.25 }}>{item.value}</div>
                       </div>
                     ))}
                   </div>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', marginBottom: '12px' }}>Stack</p>
+
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.5)', marginBottom: '12px' }}>Stack</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 0' }}>
                     {stack.map((s, i) => (
-                      <span key={s} style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '17px', color: '#0A0908', lineHeight: 1.5 }}>
+                      <span key={s} style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '16px', color: '#0A0908', lineHeight: 1.5 }}>
                         {s}{i < stack.length - 1 ? <span style={{ color: 'rgba(10,9,8,0.3)', margin: '0 6px' }}>·</span> : ''}
                       </span>
                     ))}

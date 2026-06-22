@@ -91,9 +91,12 @@ button { cursor: none; }
   .hero-eyebrow { font-size: 12px !important; }
   .hero-video { width: 92% !important; }
 
-  /* About — stack the two-column grid */
-  .about-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
-  .about-grid-second { padding-top: 0 !important; }
+  /* About — stack the two-column layout, drop the vertical rule */
+  .about-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .about-side { border-left: none !important; padding-left: 0 !important; border-top: 1px solid rgba(10,9,8,0.08) !important; padding-top: 28px !important; }
+
+
+
 
   /* Project cards — stack title/desc above stats, left-align stats */
   .project-card-inner { padding: 28px 22px !important; }
