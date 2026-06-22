@@ -67,7 +67,7 @@ function CityPulseThumb() {
       <circle cx="320" cy="50" r="3" fill="#F8F5F0" opacity="0.35" />
       {/* cluster ring around the highlighted group, the "actionable hotspot" */}
       <circle cx="124" cy="71" r="26" fill="none" stroke="#B8974A" strokeWidth="1.5" opacity="0.7" />
-      <text x="124" y="38" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="1.5" fill="#B8974A" opacity="0.85">CLUSTERED</text>
+      <text x="124" y="38" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="9" letterSpacing="1.5" fill="#B8974A" opacity="0.85">CLUSTERED</text>
       {/* eye icon implying vision AI reading a photo report */}
       <g transform="translate(255,150)">
         <rect x="-22" y="-15" width="44" height="30" rx="4" fill="#F8F5F0" opacity="0.08" stroke="#F8F5F0" strokeOpacity="0.25" />
@@ -107,15 +107,15 @@ function ReceiptifyThumb() {
       {/* split-three-ways dots on the left, implying the bill-split outcome */}
       <g transform="translate(55,150)">
         <circle cx="0" cy="0" r="13" fill="none" stroke="#F8F5F0" strokeOpacity="0.5" strokeWidth="1.3" />
-        <text x="0" y="4" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontSize="12" fill="#F8F5F0" opacity="0.85">1</text>
+        <text x="0" y="4" textAnchor="middle" fontFamily="Outfit, sans-serif" fontSize="12" fill="#F8F5F0" opacity="0.85">1</text>
       </g>
       <g transform="translate(85,160)">
         <circle cx="0" cy="0" r="10" fill="none" stroke="#F8F5F0" strokeOpacity="0.4" strokeWidth="1.2" />
-        <text x="0" y="3.5" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontSize="10" fill="#F8F5F0" opacity="0.7">2</text>
+        <text x="0" y="3.5" textAnchor="middle" fontFamily="Outfit, sans-serif" fontSize="10" fill="#F8F5F0" opacity="0.7">2</text>
       </g>
       <g transform="translate(35,170)">
         <circle cx="0" cy="0" r="8" fill="none" stroke="#F8F5F0" strokeOpacity="0.3" strokeWidth="1" />
-        <text x="0" y="3" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontSize="8" fill="#F8F5F0" opacity="0.55">3</text>
+        <text x="0" y="3" textAnchor="middle" fontFamily="Outfit, sans-serif" fontSize="8" fill="#F8F5F0" opacity="0.55">3</text>
       </g>
     </svg>
   );
@@ -286,7 +286,7 @@ export default function App() {
               onClick={() => { setTab(t); if (t === 'arcade') setGame('menu'); }}
               style={{
                 background: 'none', border: 'none', cursor: 'none',
-                fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500,
+                fontFamily: "'Inter', sans-serif", fontSize: '10px', fontWeight: 500,
                 letterSpacing: '2.5px', textTransform: 'uppercase',
                 color: tab === t ? '#0A0908' : '#6B5E52',
                 borderBottom: tab === t ? '1px solid #0A0908' : '1px solid transparent',
@@ -338,7 +338,7 @@ export default function App() {
             }}>
               <div className="hero-text-inner" style={{ maxWidth: '900px', paddingLeft: '6px' }}>
                 <p className="hero-eyebrow" style={{
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: '13px', fontWeight: 500,
                   letterSpacing: '0.3px',
                   color: '#6B5E52',
@@ -355,8 +355,8 @@ export default function App() {
                 <h1 style={{ margin: 0, padding: 0, userSelect: 'none' }}>
                   <span style={{
                     display: 'block',
-                    fontFamily: "'Fraunces', Georgia, serif",
-                    fontWeight: 400,
+                    fontFamily: "'Outfit', sans-serif",
+                    fontWeight: 500,
                     fontSize: 'clamp(42px, 6.4vw, 88px)',
                     color: '#0A0908',
                     letterSpacing: '-1.5px',
@@ -369,7 +369,7 @@ export default function App() {
                   </span>
                   <span style={{
                     display: 'block',
-                    fontFamily: "'Fraunces', Georgia, serif",
+                    fontFamily: "'Outfit', sans-serif",
                     fontStyle: 'italic',
                     fontWeight: 400,
                     fontSize: 'clamp(26px, 4vw, 52px)',
@@ -405,7 +405,7 @@ export default function App() {
             {/* Scroll hint */}
             <div style={{
               paddingTop: '8px', paddingBottom: '8px',
-              fontFamily: "'DM Sans', sans-serif", fontSize: '8px',
+              fontFamily: "'Inter', sans-serif", fontSize: '8px',
               letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.22)',
             }}>scroll</div>
           </div>
@@ -416,22 +416,23 @@ export default function App() {
               <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
 
                 <div>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '28px' }}>About</p>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '28px' }}>About</p>
                   <p style={{
-                    fontFamily: "'Fraunces', Georgia, serif",
+                    fontFamily: "'Outfit', sans-serif",
+                    fontWeight: 500,
                     fontSize: '21px', color: '#0A0908', lineHeight: 1.75, marginBottom: '20px',
                   }}>
                     I study Computer Science at Rutgers Honors College, and I like building things end to end — from the database up to the pixel you tap.
                   </p>
                   <p style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "'Inter', sans-serif",
                     fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9, marginBottom: '28px',
                   }}>
                     Most of my time lately has gone into full-stack apps, AI agents, and the infrastructure that keeps them running. Outside of school I build for the fun of figuring something out.
                   </p>
                   <a href="mailto:shaikmohamedashfaq@gmail.com"
                     style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: '11px',
+                      fontFamily: "'Inter', sans-serif", fontSize: '11px',
                       color: '#0A0908', textDecoration: 'none',
                       borderBottom: '1px solid rgba(10,9,8,0.22)', paddingBottom: '2px',
                     }}>
@@ -448,15 +449,15 @@ export default function App() {
                       { label: 'Focus',  value: 'Full-Stack · AI · Infra' },
                     ].map(item => (
                       <div key={item.label} style={{ display: 'flex', gap: '20px', alignItems: 'baseline' }}>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', minWidth: '48px', flexShrink: 0 }}>{item.label}</span>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: '#0A0908' }}>{item.value}</span>
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', minWidth: '48px', flexShrink: 0 }}>{item.label}</span>
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#0A0908' }}>{item.value}</span>
                       </div>
                     ))}
                   </div>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', marginBottom: '12px' }}>Stack</p>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', marginBottom: '12px' }}>Stack</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 0' }}>
                     {stack.map((s, i) => (
-                      <span key={s} style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '17px', color: '#0A0908', lineHeight: 1.5 }}>
+                      <span key={s} style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '17px', color: '#0A0908', lineHeight: 1.5 }}>
                         {s}{i < stack.length - 1 ? <span style={{ color: 'rgba(10,9,8,0.3)', margin: '0 6px' }}>·</span> : ''}
                       </span>
                     ))}
@@ -471,9 +472,9 @@ export default function App() {
           <div className="section-padded" style={{ maxWidth: '900px', margin: '56px auto 0', padding: '0 48px' }}>
             <div style={{ borderTop: '1px solid rgba(10,9,8,0.07)', paddingTop: '48px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '40px' }}>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52' }}>Work</p>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52' }}>Work</p>
                 <button {...hov} onClick={() => setTab('projects')}
-                  style={{ background: 'none', border: 'none', cursor: 'none', fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', borderBottom: '1px solid rgba(107,94,82,0.4)', paddingBottom: '1px' }}>
+                  style={{ background: 'none', border: 'none', cursor: 'none', fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', borderBottom: '1px solid rgba(107,94,82,0.4)', paddingBottom: '1px' }}>
                   all projects →
                 </button>
               </div>
@@ -508,25 +509,25 @@ export default function App() {
                       <div className="project-card-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '40px 40px' }}>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '10px' }}>
-                            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '36px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: 0 }}>{p.title}</h3>
-                            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>{p.year}</span>
+                            <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '36px', fontWeight: 500, color: '#0A0908', lineHeight: 1, margin: 0 }}>{p.title}</h3>
+                            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>{p.year}</span>
                           </div>
-                          <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '16px', color: '#6B5E52', marginBottom: '14px' }}>{p.tagline}</p>
-                          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.75, maxWidth: '520px', marginBottom: '20px' }}>{p.desc}</p>
+                          <p style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '16px', color: '#6B5E52', marginBottom: '14px' }}>{p.tagline}</p>
+                          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.75, maxWidth: '520px', marginBottom: '20px' }}>{p.desc}</p>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                             {p.tags.slice(0, 4).map(t => (
-                              <span key={t} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.38)', border: '1px solid rgba(10,9,8,0.12)', padding: '3px 9px' }}>{t}</span>
+                              <span key={t} style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.38)', border: '1px solid rgba(10,9,8,0.12)', padding: '3px 9px' }}>{t}</span>
                             ))}
                           </div>
                         </div>
                         <div className="project-card-stats" style={{ paddingLeft: '32px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-end' }}>
                           {p.stats.map(s => (
                             <div key={s.l} style={{ textAlign: 'right' }}>
-                              <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '28px', color: '#0A0908', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
-                              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '4px' }}>{s.l}</div>
+                              <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: '28px', color: '#0A0908', fontWeight: 500, lineHeight: 1 }}>{s.n}</div>
+                              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '4px' }}>{s.l}</div>
                             </div>
                           ))}
-                          <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '15px', color: '#B8974A', marginTop: '8px', textDecoration: 'underline' }}>visit site →</div>
+                          <div style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '15px', color: '#B8974A', marginTop: '8px', textDecoration: 'underline' }}>visit site →</div>
                         </div>
                       </div>
                     </div>
@@ -538,8 +539,8 @@ export default function App() {
 
           {/* FOOTER */}
           <div className="section-padded footer-row" style={{ maxWidth: '900px', margin: '80px auto 0', padding: '32px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(10,9,8,0.06)' }}>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>Ashfaq Shaik-Mohamed · 2025</span>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.2)' }}>Jersey City, NJ</span>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>Ashfaq Shaik-Mohamed · 2025</span>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.2)' }}>Jersey City, NJ</span>
           </div>
         </div>
       )}
@@ -547,21 +548,21 @@ export default function App() {
       {/* ── PROJECTS (full page) ─────────────────────────────── */}
       {tab === 'projects' && (
         <div className="section-padded" style={{ maxWidth: '860px', margin: '0 auto', padding: '120px 48px 80px' }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '56px' }}>Selected Work</p>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '56px' }}>Selected Work</p>
           {projects.map((p, i) => (
             <div key={i} style={{ borderTop: '1px solid rgba(10,9,8,0.08)', padding: '52px 0' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4px' }}>
-                <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '38px', fontWeight: 400, color: '#0A0908', letterSpacing: '-0.5px' }}>{p.title}</h2>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>{p.year}</span>
+                <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '38px', fontWeight: 500, color: '#0A0908', letterSpacing: '-0.5px' }}>{p.title}</h2>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>{p.year}</span>
               </div>
-              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '15px', color: '#6B5E52', marginBottom: '24px' }}>{p.tagline}</p>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '15px', color: '#6B5E52', marginBottom: '24px' }}>{p.tagline}</p>
               <div style={{ width: '100%', height: '180px', overflow: 'hidden', marginBottom: '28px', border: '1px solid rgba(10,9,8,0.08)' }}>
                 {projectThumbs[p.title] && projectThumbs[p.title]()}
               </div>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9, marginBottom: '24px' }}>{p.desc}</p>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9, marginBottom: '24px' }}>{p.desc}</p>
               <ul style={{ listStyle: 'none', marginBottom: '28px' }}>
                 {p.bullets.map((b, j) => (
-                  <li key={j} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.8, marginBottom: '8px', paddingLeft: '18px', position: 'relative' }}>
+                  <li key={j} style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.8, marginBottom: '8px', paddingLeft: '18px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: 0, color: '#B8974A' }}>—</span>{b}
                   </li>
                 ))}
@@ -569,19 +570,19 @@ export default function App() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(10,9,8,0.06)', borderBottom: '1px solid rgba(10,9,8,0.06)', padding: '20px 0', marginBottom: '24px' }}>
                 {p.stats.map(s => (
                   <div key={s.l}>
-                    <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '28px', fontWeight: 400, color: '#0A0908' }}>{s.n}</div>
-                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '4px' }}>{s.l}</div>
+                    <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: '28px', fontWeight: 500, color: '#0A0908' }}>{s.n}</div>
+                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '4px' }}>{s.l}</div>
                   </div>
                 ))}
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
                 {p.tags.map(t => (
-                  <span key={t} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.38)', border: '1px solid rgba(10,9,8,0.13)', padding: '4px 10px' }}>{t}</span>
+                  <span key={t} style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.38)', border: '1px solid rgba(10,9,8,0.13)', padding: '4px 10px' }}>{t}</span>
                 ))}
               </div>
               <div style={{ display: 'flex', gap: '24px' }}>
-                <a href={p.link} target="_blank" {...hov} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: '#0A0908', textDecoration: 'none', borderBottom: '1px solid #0A0908', paddingBottom: '2px' }}>Live →</a>
-                <a href={p.github} target="_blank" {...hov} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', textDecoration: 'none', borderBottom: '1px solid #6B5E52', paddingBottom: '2px' }}>GitHub</a>
+                <a href={p.link} target="_blank" {...hov} style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: '#0A0908', textDecoration: 'none', borderBottom: '1px solid #0A0908', paddingBottom: '2px' }}>Live →</a>
+                <a href={p.github} target="_blank" {...hov} style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', textDecoration: 'none', borderBottom: '1px solid #6B5E52', paddingBottom: '2px' }}>GitHub</a>
               </div>
             </div>
           ))}
@@ -644,11 +645,11 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
 
   return (
     <div className="section-padded" style={{ maxWidth: '720px', margin: '0 auto', padding: '120px 48px 80px' }}>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Quiz</p>
-      <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '36px', fontWeight: 400, color: '#0A0908', marginBottom: '10px', letterSpacing: '-0.5px' }}>
+      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Quiz</p>
+      <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '36px', fontWeight: 500, color: '#0A0908', marginBottom: '10px', letterSpacing: '-0.5px' }}>
         {allDone ? 'results.' : 'how well do you know me?'}
       </h2>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.58)', marginBottom: '56px', lineHeight: 1.7 }}>
+      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.58)', marginBottom: '56px', lineHeight: 1.7 }}>
         {allDone
           ? 'Here\'s how your answers stack up against mine.'
           : '12 questions about me. Pick what you think is right — then see if you got it.'}
@@ -662,7 +663,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
               background: activeQ === i ? '#0A0908' : answered[i] ? 'rgba(10,9,8,0.06)' : 'none',
               border: `1px solid ${activeQ === i ? '#0A0908' : 'rgba(10,9,8,0.12)'}`,
               cursor: 'none', borderRadius: '2px',
-              fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '1px',
+              fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '1px',
               color: activeQ === i ? '#F8F5F0' : answered[i] ? 'rgba(10,9,8,0.35)' : 'rgba(10,9,8,0.5)',
               padding: '5px 11px', transition: 'all 0.15s',
             }}>{i + 1}</button>
@@ -672,7 +673,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
       {/* Active question */}
       {questions.map((q, qi) => qi !== activeQ ? null : (
         <div key={qi} style={{ animation: 'fadeUp 0.25s ease' }}>
-          <p className="quiz-question-text" style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '26px', color: '#0A0908', marginBottom: '32px', lineHeight: 1.3 }}>{q.q}</p>
+          <p className="quiz-question-text" style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: '26px', color: '#0A0908', marginBottom: '32px', lineHeight: 1.3 }}>{q.q}</p>
           <div className="quiz-options-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
             {(['a','b'] as const).map(side => {
               const label = side === 'a' ? q.a : q.b;
@@ -704,27 +705,27 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
                     }} />
                   )}
 
-                  <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '22px', color: '#0A0908', display: 'block', marginBottom: '8px', position: 'relative', zIndex: 1 }}>{label}</span>
+                  <span style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: '22px', color: '#0A0908', display: 'block', marginBottom: '8px', position: 'relative', zIndex: 1 }}>{label}</span>
                   {revealed[qi] && (
-                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '1.5px', textTransform: 'uppercase', color: side === (questions[qi] as any).ans ? '#2C7A2C' : '#6B5E52', position: 'relative', zIndex: 1 }}>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '1.5px', textTransform: 'uppercase', color: side === (questions[qi] as any).ans ? '#2C7A2C' : '#6B5E52', position: 'relative', zIndex: 1 }}>
                       {side === (questions[qi] as any).ans ? '✓ correct' : '✗ wrong'} · {percent}%
                     </span>
                   )}
                   {!revealed[qi] && (
-                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.25)', position: 'relative', zIndex: 1 }}>pick this</span>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.25)', position: 'relative', zIndex: 1 }}>pick this</span>
                   )}
                 </button>
               );
             })}
           </div>
           {answered[qi] && (
-            <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '14px', color: answered[qi] === (q as any).ans ? '#2C7A2C' : '#8B2A2A' }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '14px', color: answered[qi] === (q as any).ans ? '#2C7A2C' : '#8B2A2A' }}>
               {answered[qi] === (q as any).ans ? `${answered[qi] === 'a' ? q.a : q.b} — you got it.` : `${answered[qi] === 'a' ? q.a : q.b} — not quite.`}
               {activeQ < questions.length - 1 && !allDone && (
                 <button onClick={() => {
                   const next = answered.findIndex((a, i) => a === null);
                   if (next !== -1) setActiveQ(next);
-                }} {...hov} style={{ background: 'none', border: 'none', cursor: 'none', fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginLeft: '16px', borderBottom: '1px solid #6B5E52', paddingBottom: '1px' }}>
+                }} {...hov} style={{ background: 'none', border: 'none', cursor: 'none', fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginLeft: '16px', borderBottom: '1px solid #6B5E52', paddingBottom: '1px' }}>
                   next →
                 </button>
               )}
@@ -741,11 +742,11 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
         return (
           <div style={{ marginTop: '64px', borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '48px' }}>
             <div style={{ marginBottom: '48px' }}>
-              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '72px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: '0 0 8px' }}>{pctMatch}<span style={{ fontSize: '28px' }}>%</span></p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '12px' }}>match with Ashfaq</p>
-              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '17px', color: '#6B5E52' }}>{label}</p>
+              <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '72px', fontWeight: 500, color: '#0A0908', lineHeight: 1, margin: '0 0 8px' }}>{pctMatch}<span style={{ fontSize: '28px' }}>%</span></p>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '12px' }}>match with Ashfaq</p>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '17px', color: '#6B5E52' }}>{label}</p>
             </div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '20px' }}>breakdown</p>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '20px' }}>breakdown</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {questions.map((q, i) => {
                 const isCorrect = answered[i] === (q as any).ans;
@@ -753,9 +754,9 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
                 const rightAnswer = (q as any).ans === 'a' ? q.a : q.b;
                 return (
                   <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'baseline' }}>
-                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.28)', minWidth: '220px', lineHeight: 1.5 }}>{q.q}</span>
-                    <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '14px', color: isCorrect ? '#2C7A2C' : '#8B2A2A' }}>{myPick}</span>
-                    {!isCorrect && <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.3)', letterSpacing: '1px' }}>→ {rightAnswer}</span>}
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.28)', minWidth: '220px', lineHeight: 1.5 }}>{q.q}</span>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '14px', color: isCorrect ? '#2C7A2C' : '#8B2A2A' }}>{myPick}</span>
+                    {!isCorrect && <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.3)', letterSpacing: '1px' }}>→ {rightAnswer}</span>}
                   </div>
                 );
               })}
@@ -776,9 +777,9 @@ function ArcadeTab({ game, setGame, setCursorHover }: { game: Game; setGame: (g:
 
   return (
     <div className="section-padded" style={{ maxWidth: '860px', margin: '0 auto', padding: '120px 48px 80px' }}>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Arcade</p>
-      <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '42px', fontWeight: 400, color: '#0A0908', marginBottom: '12px', letterSpacing: '-0.5px' }}>take a break.</h2>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.58)', lineHeight: 1.7, maxWidth: '480px', marginBottom: '56px' }}>
+      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Arcade</p>
+      <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '42px', fontWeight: 500, color: '#0A0908', marginBottom: '12px', letterSpacing: '-0.5px' }}>take a break.</h2>
+      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.58)', lineHeight: 1.7, maxWidth: '480px', marginBottom: '56px' }}>
         three games. no scores saved. no pressure. built from scratch, right here in the browser.
       </p>
 
@@ -796,11 +797,11 @@ function ArcadeTab({ game, setGame, setCursorHover }: { game: Game; setGame: (g:
             onMouseOver={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor='#0A0908'; el.style.transform='translateY(-3px)'; el.style.background='rgba(10,9,8,0.015)'; }}
             onMouseOut={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor='rgba(10,9,8,0.1)'; el.style.transform='none'; el.style.background='none'; }}>
             <div style={{ color: '#0A0908', marginBottom: '18px' }}>{g.icon}</div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '6px' }}>{g.tag}</p>
-            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '26px', fontWeight: 400, color: '#0A0908', marginBottom: '10px' }}>{g.title}</h3>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.7, marginBottom: '16px' }}>{g.desc}</p>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.22)', marginBottom: '16px' }}>{g.controls}</p>
-            <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '14px', color: '#B8974A' }}>Play →</span>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '6px' }}>{g.tag}</p>
+            <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '26px', fontWeight: 500, color: '#0A0908', marginBottom: '10px' }}>{g.title}</h3>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.7, marginBottom: '16px' }}>{g.desc}</p>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.22)', marginBottom: '16px' }}>{g.controls}</p>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '14px', color: '#B8974A' }}>Play →</span>
           </button>
         ))}
       </div>
@@ -832,7 +833,7 @@ function PongGame({ onBack }: { onBack: () => void }) {
       ctx.setLineDash([5,8]);ctx.strokeStyle='rgba(10,9,8,0.08)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);
       ctx.fillStyle='#0A0908';ctx.fillRect(30,s.p1.y,PW,PH);ctx.fillRect(W-30-PW,s.p2.y,PW,PH);
       ctx.beginPath();ctx.arc(s.ball.x,s.ball.y,5,0,Math.PI*2);ctx.fillStyle='#0A0908';ctx.fill();
-      ctx.fillStyle='rgba(10,9,8,0.18)';ctx.font='400 26px Fraunces,Georgia';ctx.textAlign='center';
+      ctx.fillStyle='rgba(10,9,8,0.18)';ctx.font='500 26px Outfit,sans-serif';ctx.textAlign='center';
       ctx.fillText(`${s.score.p1}`,W/2-60,42);ctx.fillText(`${s.score.p2}`,W/2+60,42);
       raf=requestAnimationFrame(loop);
     };
@@ -874,8 +875,8 @@ function SnakeGame({ onBack }: { onBack: () => void }) {
       for(let y=0;y<=ROWS;y++){ctx.beginPath();ctx.moveTo(0,y*CELL);ctx.lineTo(COLS*CELL,y*CELL);ctx.stroke();}
       ctx.fillStyle='#B8974A';ctx.beginPath();ctx.arc(food.x*CELL+CELL/2,food.y*CELL+CELL/2,CELL/2-2,0,Math.PI*2);ctx.fill();
       snake.forEach((seg,i)=>{const a=1-(i/snake.length)*0.65;ctx.fillStyle=`rgba(10,9,8,${a})`;ctx.fillRect(seg.x*CELL+1,seg.y*CELL+1,CELL-2,CELL-2);});
-      ctx.fillStyle='rgba(10,9,8,0.22)';ctx.font='400 15px Fraunces,Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,10,22);
-      if(dead){ctx.fillStyle='rgba(248,245,240,0.88)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 26px Fraunces,Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 12px DM Sans';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
+      ctx.fillStyle='rgba(10,9,8,0.22)';ctx.font='500 15px Outfit,sans-serif';ctx.textAlign='left';ctx.fillText(`${score}`,10,22);
+      if(dead){ctx.fillStyle='rgba(248,245,240,0.88)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='500 26px Outfit,sans-serif';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 12px Inter';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
       requestAnimationFrame(draw);
     };
     requestAnimationFrame(draw);
@@ -921,8 +922,8 @@ function TetrisGame({ onBack }: { onBack: () => void }) {
       let gy=py;while(valid(piece.shape,px,gy+1))gy++;
       piece.shape.forEach((row,r)=>row.forEach((v,c)=>{if(v&&gy+r>=0){ctx.fillStyle='rgba(10,9,8,0.07)';ctx.fillRect((px+c)*CELL+1,(gy+r)*CELL+1,CELL-2,CELL-2);}}));
       piece.shape.forEach((row,r)=>row.forEach((v,c)=>{if(v&&py+r>=0){ctx.fillStyle=piece.color;ctx.fillRect((px+c)*CELL+1,(py+r)*CELL+1,CELL-2,CELL-2);}}));
-      ctx.fillStyle='rgba(10,9,8,0.2)';ctx.font='400 13px Fraunces,Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,6,18);
-      if(dead){ctx.fillStyle='rgba(248,245,240,0.9)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 24px Fraunces,Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 11px sans-serif';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
+      ctx.fillStyle='rgba(10,9,8,0.2)';ctx.font='500 13px Outfit,sans-serif';ctx.textAlign='left';ctx.fillText(`${score}`,6,18);
+      if(dead){ctx.fillStyle='rgba(248,245,240,0.9)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='500 24px Outfit,sans-serif';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 11px sans-serif';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
       requestAnimationFrame(draw);
     };
     requestAnimationFrame(draw);
@@ -935,12 +936,12 @@ function GameShell({ title, hint, onBack, children }: { title: string; hint: str
   return (
     <div className="section-padded game-shell-wrap" style={{ display:'flex',flexDirection:'column',alignItems:'center',padding:'100px 48px 80px' }}>
       <div style={{ width:'100%',maxWidth:'860px',display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'32px' }}>
-        <button onClick={onBack} style={{ background:'none',border:'none',cursor:'pointer',fontFamily:"'DM Sans',sans-serif",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',color:'#6B5E52' }}>← Back</button>
-        <span style={{ fontFamily:"'Fraunces', Georgia, serif",fontSize:'16px',color:'#0A0908',fontWeight:400 }}>{title}</span>
+        <button onClick={onBack} style={{ background:'none',border:'none',cursor:'pointer',fontFamily:"'Inter', sans-serif",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',color:'#6B5E52' }}>← Back</button>
+        <span style={{ fontFamily:"'Outfit', sans-serif",fontSize:'16px',color:'#0A0908',fontWeight:400 }}>{title}</span>
         <span style={{ width:'48px' }}/>
       </div>
       {children}
-      <p style={{ marginTop:'16px',fontFamily:"'DM Sans',sans-serif",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',color:'#6B5E52' }}>{hint}</p>
+      <p style={{ marginTop:'16px',fontFamily:"'Inter', sans-serif",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',color:'#6B5E52' }}>{hint}</p>
     </div>
   );
 }
