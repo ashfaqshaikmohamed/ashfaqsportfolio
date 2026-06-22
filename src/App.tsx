@@ -370,7 +370,6 @@ export default function App() {
                   <span style={{
                     display: 'block',
                     fontFamily: "'Outfit', sans-serif",
-                    fontStyle: 'italic',
                     fontWeight: 400,
                     fontSize: 'clamp(26px, 4vw, 52px)',
                     color: 'rgba(10,9,8,0.5)',
@@ -420,8 +419,8 @@ export default function App() {
                 {/* Narrative column */}
                 <div>
                   <p style={{
-                    fontFamily: "'Outfit', sans-serif",
-                    fontStyle: 'italic', fontWeight: 400,
+                    fontFamily: "'Outfit', sans-serif", 
+                    fontWeight: 400,
                     fontSize: 'clamp(20px, 2vw, 24px)',
                     color: '#0A0908', lineHeight: 1.5,
                     marginBottom: '20px',
@@ -466,7 +465,7 @@ export default function App() {
                   <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.5)', marginBottom: '12px' }}>Stack</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 0' }}>
                     {stack.map((s, i) => (
-                      <span key={s} style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'italic', fontSize: '16px', color: '#0A0908', lineHeight: 1.5 }}>
+                      <span key={s} style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#0A0908', lineHeight: 1.5 }}>
                         {s}{i < stack.length - 1 ? <span style={{ color: 'rgba(10,9,8,0.3)', margin: '0 6px' }}>·</span> : ''}
                       </span>
                     ))}
