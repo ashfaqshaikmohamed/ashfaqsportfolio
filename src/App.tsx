@@ -347,7 +347,7 @@ export default function App() {
                   userSelect: 'none',
                 }}>
                   <HeroReveal
-                    text="computer science · rutgers nb'28 — open to chat"
+                    text="ece + math · rutgers nb'28 — open to chat"
                     charDelay={13} charDuration={550} startDelay={150}
                   />
                 </p>
@@ -422,7 +422,7 @@ export default function App() {
                     fontWeight: 500,
                     fontSize: '21px', color: '#0A0908', lineHeight: 1.75, marginBottom: '20px',
                   }}>
-                    I study Computer Science at Rutgers Honors College, and I like building things end to end — from the database up to the pixel you tap.
+                    I study ECE and Math at Rutgers University, and I like building things end to end — from the database up to the pixel you tap.
                   </p>
                   <p style={{
                     fontFamily: "'Inter', sans-serif",
@@ -443,8 +443,8 @@ export default function App() {
                 <div className="about-grid-second" style={{ paddingTop: '37px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '13px', marginBottom: '36px' }}>
                     {[
-                      { label: 'Degree', value: 'B.S. Computer Science' },
-                      { label: 'School', value: 'Rutgers Honors College' },
+                      { label: 'Degree', value: 'B.E. Electrical and Computer Engineering' },
+                      { label: 'School', value: 'Rutgers University' },
                       { label: 'Class',  value: '2028' },
                       { label: 'Focus',  value: 'Full-Stack · AI · Infra' },
                     ].map(item => (
