@@ -418,9 +418,9 @@ export default function App() {
                 <div>
                   <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '28px' }}>About</p>
                   <p style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Inter', sans-serif",
                     fontWeight: 500,
-                    fontSize: '21px', color: '#0A0908', lineHeight: 1.75, marginBottom: '20px',
+                    fontSize: '16px', color: '#0A0908', lineHeight: 1.8, marginBottom: '18px',
                   }}>
                     I study ECE and Math at Rutgers University, and I like building things end to end — from the database up to the pixel you tap.
                   </p>
@@ -428,7 +428,7 @@ export default function App() {
                     fontFamily: "'Inter', sans-serif",
                     fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9, marginBottom: '28px',
                   }}>
-                    Most of my time lately has gone into full-stack apps, AI agents, and the infrastructure that keeps them running. Outside of school I build for the fun of figuring something out.
+                    Most of my time lately has gone into full-stack apps, AI agents, and the infrastructure that keeps them running — comfortable moving between Python and TypeScript for the app layer, dropping into Java or C when something needs to run faster or closer to the metal, and picking up Rust whenever I want to actually understand what's happening underneath. Outside of school I build for the fun of figuring something out.
                   </p>
                   <a href="mailto:shaikmohamedashfaq@gmail.com"
                     style={{
