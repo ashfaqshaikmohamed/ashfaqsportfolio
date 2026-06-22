@@ -7,11 +7,11 @@ const projects = [
   {
     title: 'CityPulse',
     tagline: 'Civic accountability, city-scale.',
-    desc: 'Full-stack platform ingesting live NYC 311 complaint data, clustering geospatial incidents with PostGIS, and running Gemini Vision AI to auto-triage citizen photo reports — turning raw city noise into actionable civic intelligence.',
+    desc: "NYC's 311 line gets thousands of complaints a day, and most of them just disappear into a spreadsheet nobody reads. CityPulse pulls that raw feed in live, plots it on a map, and uses AI to actually look at the photos people attach — potholes, graffiti, broken streetlights — so the worst spots surface automatically instead of getting lost in the noise.",
     bullets: [
-      'Architected async FastAPI + Celery/Redis task queue for non-blocking 311 API ingestion across 50,000+ records',
-      'Integrated Gemini 1.5 Flash Vision to auto-classify citizen photo submissions, reducing manual review to zero',
-      'Built PostGIS geospatial clustering engine grouping nearby complaints into civic action items in real time',
+      'Streams the live NYC 311 feed through an async FastAPI + Celery/Redis pipeline, so 50,000+ records get processed without ever blocking the app',
+      "Plugs in Gemini Vision to read citizen-submitted photos and sort them automatically — what used to need a person scrolling through images now happens instantly",
+      'Clusters nearby complaints with PostGIS so a dozen separate reports about the same pothole become one clear, actionable hotspot on the map',
     ],
     tags: ['Next.js', 'FastAPI', 'PostgreSQL', 'PostGIS', 'Redis', 'Docker', 'Gemini AI', 'Celery'],
     link: 'https://citypulsebyash.vercel.app/',
@@ -23,11 +23,11 @@ const projects = [
   {
     title: 'Receiptify',
     tagline: 'Split bills. No drama.',
-    desc: 'On-device OCR bill-splitter using Tesseract.js to parse itemized receipts directly in the browser — no server, no uploads, no accounts. Detects quantities, tip, and tax, then splits the check with one tap.',
+    desc: "Splitting a dinner check always turns into ten minutes of bad math on a napkin. Receiptify skips that entirely — snap a photo of the receipt, and it reads every item, the tax, and the tip right there in your browser, then splits it however your table actually ordered. No app to download, no account, and the photo never leaves your phone.",
     bullets: [
-      'Built Tesseract.js OCR pipeline with quantity-prefix detection ("2x Steak") and tip/tax auto-extraction',
-      'Zero-backend architecture: all parsing runs client-side for complete privacy, deployed on Vercel',
-      'Framer Motion animated tutorial with adaptive layout — bottom sheet on mobile, dialog on desktop',
+      'Runs real OCR with Tesseract.js entirely client-side, parsing quantities like "2x Steak" along with tax and tip automatically',
+      'Skips the backend completely — every receipt is read and split right on your device, so nothing about your bill ever touches a server',
+      'Walks first-time users through splitting with an animated Framer Motion tutorial that adapts itself — a bottom sheet on phones, a dialog on desktop',
     ],
     tags: ['React', 'TypeScript', 'Tesseract.js', 'Firebase', 'Framer Motion', 'Tailwind CSS'],
     link: 'https://receiptifybyashfaq.vercel.app/',
@@ -39,6 +39,92 @@ const projects = [
 ];
 
 const stack = ['Python', 'React', 'Java', 'JavaScript', 'TypeScript', 'Rust', 'C', 'Node.js'];
+
+// ─── Project thumbnails — hand-built SVG illustrations advertising each project's concept ───
+function CityPulseThumb() {
+  return (
+    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" style={{ width: '100%', height: '100%', display: 'block' }}>
+      <defs>
+        <linearGradient id="cpSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#3D4A3E" />
+          <stop offset="100%" stopColor="#2C3E2D" />
+        </linearGradient>
+      </defs>
+      <rect width="400" height="200" fill="url(#cpSky)" />
+      {/* faint street grid */}
+      {[40, 90, 140, 190, 240, 290, 340].map(x => (
+        <line key={x} x1={x} y1="0" x2={x} y2="200" stroke="rgba(248,245,240,0.06)" strokeWidth="1" />
+      ))}
+      {[30, 70, 110, 150, 190].map(y => (
+        <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="rgba(248,245,240,0.06)" strokeWidth="1" />
+      ))}
+      {/* complaint pins scattered, one cluster highlighted */}
+      <circle cx="120" cy="60" r="4" fill="#B8974A" opacity="0.55" />
+      <circle cx="135" cy="72" r="4" fill="#B8974A" opacity="0.55" />
+      <circle cx="118" cy="80" r="4" fill="#B8974A" opacity="0.55" />
+      <circle cx="290" cy="130" r="3" fill="#F8F5F0" opacity="0.35" />
+      <circle cx="60" cy="150" r="3" fill="#F8F5F0" opacity="0.35" />
+      <circle cx="320" cy="50" r="3" fill="#F8F5F0" opacity="0.35" />
+      {/* cluster ring around the highlighted group, the "actionable hotspot" */}
+      <circle cx="124" cy="71" r="26" fill="none" stroke="#B8974A" strokeWidth="1.5" opacity="0.7" />
+      <text x="124" y="38" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="1.5" fill="#B8974A" opacity="0.85">CLUSTERED</text>
+      {/* eye icon implying vision AI reading a photo report */}
+      <g transform="translate(255,150)">
+        <rect x="-22" y="-15" width="44" height="30" rx="4" fill="#F8F5F0" opacity="0.08" stroke="#F8F5F0" strokeOpacity="0.25" />
+        <circle cx="0" cy="0" r="6" fill="none" stroke="#F8F5F0" strokeOpacity="0.6" strokeWidth="1.3" />
+        <circle cx="0" cy="0" r="2" fill="#F8F5F0" opacity="0.6" />
+      </g>
+    </svg>
+  );
+}
+
+function ReceiptifyThumb() {
+  return (
+    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" style={{ width: '100%', height: '100%', display: 'block' }}>
+      <defs>
+        <linearGradient id="rfBg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#4A3424" />
+          <stop offset="100%" stopColor="#3D2C1E" />
+        </linearGradient>
+      </defs>
+      <rect width="400" height="200" fill="url(#rfBg)" />
+      {/* receipt paper, slightly tilted */}
+      <g transform="translate(150,12) rotate(-4)">
+        <rect x="0" y="0" width="100" height="170" rx="3" fill="#F8F5F0" opacity="0.95" />
+        {/* jagged torn bottom edge */}
+        <path d="M0,170 L8,166 L16,170 L24,166 L32,170 L40,166 L48,170 L56,166 L64,170 L72,166 L80,170 L88,166 L96,170 L100,166 L100,170 Z" fill="#F8F5F0" opacity="0.95" />
+        {/* receipt lines */}
+        {[20, 32, 44, 56, 68, 80, 92].map((y, i) => (
+          <rect key={y} x="10" y={y} width={i === 6 ? 40 : 70 - (i % 3) * 8} height="3" fill="#0A0908" opacity="0.55" />
+        ))}
+        <rect x="10" y="110" width="80" height="1" fill="#0A0908" opacity="0.3" />
+        <rect x="10" y="120" width="35" height="4" fill="#0A0908" opacity="0.7" />
+        <rect x="60" y="120" width="30" height="4" fill="#0A0908" opacity="0.7" />
+      </g>
+      {/* scan line sweeping across, implying OCR reading the receipt live */}
+      <rect x="0" y="95" width="400" height="3" fill="#B8974A" opacity="0.8" />
+      <rect x="0" y="95" width="400" height="22" fill="#B8974A" opacity="0.08" />
+      {/* split-three-ways dots on the left, implying the bill-split outcome */}
+      <g transform="translate(55,150)">
+        <circle cx="0" cy="0" r="13" fill="none" stroke="#F8F5F0" strokeOpacity="0.5" strokeWidth="1.3" />
+        <text x="0" y="4" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontSize="12" fill="#F8F5F0" opacity="0.85">1</text>
+      </g>
+      <g transform="translate(85,160)">
+        <circle cx="0" cy="0" r="10" fill="none" stroke="#F8F5F0" strokeOpacity="0.4" strokeWidth="1.2" />
+        <text x="0" y="3.5" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontSize="10" fill="#F8F5F0" opacity="0.7">2</text>
+      </g>
+      <g transform="translate(35,170)">
+        <circle cx="0" cy="0" r="8" fill="none" stroke="#F8F5F0" strokeOpacity="0.3" strokeWidth="1" />
+        <text x="0" y="3" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontSize="8" fill="#F8F5F0" opacity="0.55">3</text>
+      </g>
+    </svg>
+  );
+}
+
+const projectThumbs: Record<string, () => JSX.Element> = {
+  CityPulse: CityPulseThumb,
+  Receiptify: ReceiptifyThumb,
+};
 
 // Smooth letter-by-letter reveal: every character is rendered immediately
 // (so there's zero layout shift), but each one fades in from a soft blur
@@ -189,14 +275,8 @@ export default function App() {
         background: 'rgba(248,245,240,0.95)', backdropFilter: 'blur(14px)',
         borderBottom: '1px solid rgba(10,9,8,0.07)',
       }}>
-        {/* "a" — small serif logo mark, clicks home */}
-        <button onClick={() => setTab('home')} {...hov}
-          style={{
-            background: 'none', border: 'none', cursor: 'none',
-            fontFamily: '"Times New Roman", Times, serif',
-            fontSize: '22px', fontWeight: 400, color: '#0A0908',
-            letterSpacing: '-0.5px', lineHeight: 1, userSelect: 'none', padding: 0,
-          }}>a</button>
+        {/* Logo removed per request — empty spacer preserves the 3-column grid */}
+        <div aria-hidden="true" />
 
         {/* Nav tabs — center; scrolls horizontally instead of breaking
             layout if it doesn't fully fit a narrow screen */}
@@ -223,9 +303,9 @@ export default function App() {
           {[
             { href: 'https://github.com/ashfaqshaikmohamed', title: 'GitHub', svg: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> },
             { href: 'https://www.linkedin.com/in/ashfaqece/', title: 'LinkedIn', svg: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
-            { href: 'mailto:ashfaq.shaikmohamed@rutgers.edu', title: 'Email', svg: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
+            { href: 'mailto:shaikmohamedashfaq@gmail.com', title: 'Email', svg: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
           ].map(({ href, title, svg }) => (
-            <a key={title} href={href} target={href.startsWith('mailto') ? undefined : '_blank'} title={title} {...hov}
+            <a key={title} href={href} target={href.startsWith('mailto:') ? undefined : '_blank'} rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'} title={title} {...hov}
               style={{ color: '#6B5E52', display: 'flex', transition: 'color 0.18s' }}
               onMouseOver={e => (e.currentTarget.style.color = '#0A0908')}
               onMouseOut={e => (e.currentTarget.style.color = '#6B5E52')}>
@@ -267,7 +347,7 @@ export default function App() {
                   userSelect: 'none',
                 }}>
                   <HeroReveal
-                    text="ece + math · rutgers nb'28 — looking to collaborate"
+                    text="computer science · rutgers nb'28 — open to chat"
                     charDelay={13} charDuration={550} startDelay={150}
                   />
                 </p>
@@ -275,7 +355,7 @@ export default function App() {
                 <h1 style={{ margin: 0, padding: 0, userSelect: 'none' }}>
                   <span style={{
                     display: 'block',
-                    fontFamily: '"Times New Roman", Times, serif',
+                    fontFamily: "'Fraunces', Georgia, serif",
                     fontWeight: 400,
                     fontSize: 'clamp(42px, 6.4vw, 88px)',
                     color: '#0A0908',
@@ -289,7 +369,7 @@ export default function App() {
                   </span>
                   <span style={{
                     display: 'block',
-                    fontFamily: '"Times New Roman", Times, serif',
+                    fontFamily: "'Fraunces', Georgia, serif",
                     fontStyle: 'italic',
                     fontWeight: 400,
                     fontSize: 'clamp(26px, 4vw, 52px)',
@@ -338,46 +418,46 @@ export default function App() {
                 <div>
                   <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '28px' }}>About</p>
                   <p style={{
-                    fontFamily: '"Times New Roman", Times, serif',
+                    fontFamily: "'Fraunces', Georgia, serif",
                     fontSize: '21px', color: '#0A0908', lineHeight: 1.75, marginBottom: '20px',
                   }}>
-                    Double majoring in ECE and Math at Rutgers — New Brunswick. I like building things that push me, and problems without obvious answers.
+                    I study Computer Science at Rutgers Honors College, and I like building things end to end — from the database up to the pixel you tap.
                   </p>
                   <p style={{
                     fontFamily: "'DM Sans', sans-serif",
-                    fontSize: '14px', color: 'rgba(10,9,8,0.48)', lineHeight: 1.9, marginBottom: '28px',
+                    fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9, marginBottom: '28px',
                   }}>
-                    My work sits across full-stack, machine learning, and infrastructure. Not because I can't pick — because the interesting problems usually touch all three.
+                    Most of my time lately has gone into full-stack apps, AI agents, and the infrastructure that keeps them running. Outside of school I build for the fun of figuring something out.
                   </p>
-                  <a href="mailto:ashfaq.shaikmohamed@rutgers.edu"
+                  <a href="mailto:shaikmohamedashfaq@gmail.com"
                     style={{
                       fontFamily: "'DM Sans', sans-serif", fontSize: '11px',
                       color: '#0A0908', textDecoration: 'none',
                       borderBottom: '1px solid rgba(10,9,8,0.22)', paddingBottom: '2px',
                     }}>
-                    ashfaq.shaikmohamed@rutgers.edu
+                    shaikmohamedashfaq@gmail.com
                   </a>
                 </div>
 
                 <div className="about-grid-second" style={{ paddingTop: '37px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '13px', marginBottom: '36px' }}>
                     {[
-                      { label: 'Degree', value: 'B.Eng ECE & Mathematics' },
-                      { label: 'School', value: 'Rutgers University' },
+                      { label: 'Degree', value: 'B.S. Computer Science' },
+                      { label: 'School', value: 'Rutgers Honors College' },
                       { label: 'Class',  value: '2028' },
-                      { label: 'Focus',  value: 'Full-Stack · ML · Infra' },
+                      { label: 'Focus',  value: 'Full-Stack · AI · Infra' },
                     ].map(item => (
                       <div key={item.label} style={{ display: 'flex', gap: '20px', alignItems: 'baseline' }}>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.28)', minWidth: '48px', flexShrink: 0 }}>{item.label}</span>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)' }}>{item.value}</span>
+                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', minWidth: '48px', flexShrink: 0 }}>{item.label}</span>
+                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: '#0A0908' }}>{item.value}</span>
                       </div>
                     ))}
                   </div>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.28)', marginBottom: '12px' }}>Stack</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.55)', marginBottom: '12px' }}>Stack</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 0' }}>
                     {stack.map((s, i) => (
-                      <span key={s} style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '17px', color: 'rgba(10,9,8,0.65)', lineHeight: 1.5 }}>
-                        {s}{i < stack.length - 1 ? <span style={{ color: 'rgba(10,9,8,0.18)', margin: '0 6px' }}>·</span> : ''}
+                      <span key={s} style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '17px', color: '#0A0908', lineHeight: 1.5 }}>
+                        {s}{i < stack.length - 1 ? <span style={{ color: 'rgba(10,9,8,0.3)', margin: '0 6px' }}>·</span> : ''}
                       </span>
                     ))}
                   </div>
@@ -407,7 +487,6 @@ export default function App() {
                     <div
                       className="project-card-inner"
                       style={{
-                        padding: '40px 40px',
                         border: '1px solid rgba(10,9,8,0.08)',
                         background: '#F8F5F0',
                         transition: 'background 0.25s, transform 0.2s',
@@ -422,14 +501,18 @@ export default function App() {
                         (e.currentTarget as HTMLElement).style.background = '#F8F5F0';
                         (e.currentTarget as HTMLElement).style.transform = 'none';
                       }}>
-                      <div className="project-card-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      {/* Thumbnail banner */}
+                      <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>
+                        {projectThumbs[p.title] && projectThumbs[p.title]()}
+                      </div>
+                      <div className="project-card-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '40px 40px' }}>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '10px' }}>
-                            <h3 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '36px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: 0 }}>{p.title}</h3>
+                            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '36px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: 0 }}>{p.title}</h3>
                             <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>{p.year}</span>
                           </div>
-                          <p style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '16px', color: '#6B5E52', marginBottom: '14px' }}>{p.tagline}</p>
-                          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.46)', lineHeight: 1.75, maxWidth: '520px', marginBottom: '20px' }}>{p.desc}</p>
+                          <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '16px', color: '#6B5E52', marginBottom: '14px' }}>{p.tagline}</p>
+                          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.75, maxWidth: '520px', marginBottom: '20px' }}>{p.desc}</p>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                             {p.tags.slice(0, 4).map(t => (
                               <span key={t} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.38)', border: '1px solid rgba(10,9,8,0.12)', padding: '3px 9px' }}>{t}</span>
@@ -439,11 +522,11 @@ export default function App() {
                         <div className="project-card-stats" style={{ paddingLeft: '32px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-end' }}>
                           {p.stats.map(s => (
                             <div key={s.l} style={{ textAlign: 'right' }}>
-                              <div style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '28px', color: '#0A0908', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
+                              <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '28px', color: '#0A0908', fontWeight: 400, lineHeight: 1 }}>{s.n}</div>
                               <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '4px' }}>{s.l}</div>
                             </div>
                           ))}
-                          <div style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '15px', color: '#B8974A', marginTop: '8px', textDecoration: 'underline' }}>visit site →</div>
+                          <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '15px', color: '#B8974A', marginTop: '8px', textDecoration: 'underline' }}>visit site →</div>
                         </div>
                       </div>
                     </div>
@@ -468,14 +551,17 @@ export default function App() {
           {projects.map((p, i) => (
             <div key={i} style={{ borderTop: '1px solid rgba(10,9,8,0.08)', padding: '52px 0' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4px' }}>
-                <h2 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '38px', fontWeight: 400, color: '#0A0908', letterSpacing: '-0.5px' }}>{p.title}</h2>
+                <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '38px', fontWeight: 400, color: '#0A0908', letterSpacing: '-0.5px' }}>{p.title}</h2>
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52' }}>{p.year}</span>
               </div>
-              <p style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '15px', color: '#6B5E52', marginBottom: '20px' }}>{p.tagline}</p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: 'rgba(10,9,8,0.55)', lineHeight: 1.9, marginBottom: '24px' }}>{p.desc}</p>
+              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '15px', color: '#6B5E52', marginBottom: '24px' }}>{p.tagline}</p>
+              <div style={{ width: '100%', height: '180px', overflow: 'hidden', marginBottom: '28px', border: '1px solid rgba(10,9,8,0.08)' }}>
+                {projectThumbs[p.title] && projectThumbs[p.title]()}
+              </div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.9, marginBottom: '24px' }}>{p.desc}</p>
               <ul style={{ listStyle: 'none', marginBottom: '28px' }}>
                 {p.bullets.map((b, j) => (
-                  <li key={j} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.5)', lineHeight: 1.8, marginBottom: '8px', paddingLeft: '18px', position: 'relative' }}>
+                  <li key={j} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.62)', lineHeight: 1.8, marginBottom: '8px', paddingLeft: '18px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: 0, color: '#B8974A' }}>—</span>{b}
                   </li>
                 ))}
@@ -483,7 +569,7 @@ export default function App() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(10,9,8,0.06)', borderBottom: '1px solid rgba(10,9,8,0.06)', padding: '20px 0', marginBottom: '24px' }}>
                 {p.stats.map(s => (
                   <div key={s.l}>
-                    <div style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '28px', fontWeight: 400, color: '#0A0908' }}>{s.n}</div>
+                    <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '28px', fontWeight: 400, color: '#0A0908' }}>{s.n}</div>
                     <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#6B5E52', marginTop: '4px' }}>{s.l}</div>
                   </div>
                 ))}
@@ -559,10 +645,10 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
   return (
     <div className="section-padded" style={{ maxWidth: '720px', margin: '0 auto', padding: '120px 48px 80px' }}>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Quiz</p>
-      <h2 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '36px', fontWeight: 400, color: '#0A0908', marginBottom: '10px', letterSpacing: '-0.5px' }}>
+      <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '36px', fontWeight: 400, color: '#0A0908', marginBottom: '10px', letterSpacing: '-0.5px' }}>
         {allDone ? 'results.' : 'how well do you know me?'}
       </h2>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.4)', marginBottom: '56px', lineHeight: 1.7 }}>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.58)', marginBottom: '56px', lineHeight: 1.7 }}>
         {allDone
           ? 'Here\'s how your answers stack up against mine.'
           : '12 questions about me. Pick what you think is right — then see if you got it.'}
@@ -586,7 +672,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
       {/* Active question */}
       {questions.map((q, qi) => qi !== activeQ ? null : (
         <div key={qi} style={{ animation: 'fadeUp 0.25s ease' }}>
-          <p className="quiz-question-text" style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '26px', color: '#0A0908', marginBottom: '32px', lineHeight: 1.3 }}>{q.q}</p>
+          <p className="quiz-question-text" style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '26px', color: '#0A0908', marginBottom: '32px', lineHeight: 1.3 }}>{q.q}</p>
           <div className="quiz-options-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
             {(['a','b'] as const).map(side => {
               const label = side === 'a' ? q.a : q.b;
@@ -618,7 +704,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
                     }} />
                   )}
 
-                  <span style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '22px', color: '#0A0908', display: 'block', marginBottom: '8px', position: 'relative', zIndex: 1 }}>{label}</span>
+                  <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '22px', color: '#0A0908', display: 'block', marginBottom: '8px', position: 'relative', zIndex: 1 }}>{label}</span>
                   {revealed[qi] && (
                     <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '1.5px', textTransform: 'uppercase', color: side === (questions[qi] as any).ans ? '#2C7A2C' : '#6B5E52', position: 'relative', zIndex: 1 }}>
                       {side === (questions[qi] as any).ans ? '✓ correct' : '✗ wrong'} · {percent}%
@@ -632,7 +718,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
             })}
           </div>
           {answered[qi] && (
-            <p style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '14px', color: answered[qi] === (q as any).ans ? '#2C7A2C' : '#8B2A2A' }}>
+            <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '14px', color: answered[qi] === (q as any).ans ? '#2C7A2C' : '#8B2A2A' }}>
               {answered[qi] === (q as any).ans ? `${answered[qi] === 'a' ? q.a : q.b} — you got it.` : `${answered[qi] === 'a' ? q.a : q.b} — not quite.`}
               {activeQ < questions.length - 1 && !allDone && (
                 <button onClick={() => {
@@ -655,9 +741,9 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
         return (
           <div style={{ marginTop: '64px', borderTop: '1px solid rgba(10,9,8,0.08)', paddingTop: '48px' }}>
             <div style={{ marginBottom: '48px' }}>
-              <p style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '72px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: '0 0 8px' }}>{pctMatch}<span style={{ fontSize: '28px' }}>%</span></p>
+              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '72px', fontWeight: 400, color: '#0A0908', lineHeight: 1, margin: '0 0 8px' }}>{pctMatch}<span style={{ fontSize: '28px' }}>%</span></p>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '12px' }}>match with Ashfaq</p>
-              <p style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '17px', color: '#6B5E52' }}>{label}</p>
+              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '17px', color: '#6B5E52' }}>{label}</p>
             </div>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '20px' }}>breakdown</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -668,7 +754,7 @@ function PlaygroundTab({ setCursorHover }: { setCursorHover: (v: boolean) => voi
                 return (
                   <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'baseline' }}>
                     <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.28)', minWidth: '220px', lineHeight: 1.5 }}>{q.q}</span>
-                    <span style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '14px', color: isCorrect ? '#2C7A2C' : '#8B2A2A' }}>{myPick}</span>
+                    <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '14px', color: isCorrect ? '#2C7A2C' : '#8B2A2A' }}>{myPick}</span>
                     {!isCorrect && <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', color: 'rgba(10,9,8,0.3)', letterSpacing: '1px' }}>→ {rightAnswer}</span>}
                   </div>
                 );
@@ -691,8 +777,8 @@ function ArcadeTab({ game, setGame, setCursorHover }: { game: Game; setGame: (g:
   return (
     <div className="section-padded" style={{ maxWidth: '860px', margin: '0 auto', padding: '120px 48px 80px' }}>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '16px' }}>Arcade</p>
-      <h2 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '42px', fontWeight: 400, color: '#0A0908', marginBottom: '12px', letterSpacing: '-0.5px' }}>take a break.</h2>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.4)', lineHeight: 1.7, maxWidth: '480px', marginBottom: '56px' }}>
+      <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '42px', fontWeight: 400, color: '#0A0908', marginBottom: '12px', letterSpacing: '-0.5px' }}>take a break.</h2>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'rgba(10,9,8,0.58)', lineHeight: 1.7, maxWidth: '480px', marginBottom: '56px' }}>
         three games. no scores saved. no pressure. built from scratch, right here in the browser.
       </p>
 
@@ -711,10 +797,10 @@ function ArcadeTab({ game, setGame, setCursorHover }: { game: Game; setGame: (g:
             onMouseOut={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor='rgba(10,9,8,0.1)'; el.style.transform='none'; el.style.background='none'; }}>
             <div style={{ color: '#0A0908', marginBottom: '18px' }}>{g.icon}</div>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6B5E52', marginBottom: '6px' }}>{g.tag}</p>
-            <h3 style={{ fontFamily: '"Times New Roman", Times, serif', fontSize: '26px', fontWeight: 400, color: '#0A0908', marginBottom: '10px' }}>{g.title}</h3>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.45)', lineHeight: 1.7, marginBottom: '16px' }}>{g.desc}</p>
+            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '26px', fontWeight: 400, color: '#0A0908', marginBottom: '10px' }}>{g.title}</h3>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'rgba(10,9,8,0.6)', lineHeight: 1.7, marginBottom: '16px' }}>{g.desc}</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(10,9,8,0.22)', marginBottom: '16px' }}>{g.controls}</p>
-            <span style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: 'italic', fontSize: '14px', color: '#B8974A' }}>Play →</span>
+            <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontSize: '14px', color: '#B8974A' }}>Play →</span>
           </button>
         ))}
       </div>
@@ -746,7 +832,7 @@ function PongGame({ onBack }: { onBack: () => void }) {
       ctx.setLineDash([5,8]);ctx.strokeStyle='rgba(10,9,8,0.08)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);
       ctx.fillStyle='#0A0908';ctx.fillRect(30,s.p1.y,PW,PH);ctx.fillRect(W-30-PW,s.p2.y,PW,PH);
       ctx.beginPath();ctx.arc(s.ball.x,s.ball.y,5,0,Math.PI*2);ctx.fillStyle='#0A0908';ctx.fill();
-      ctx.fillStyle='rgba(10,9,8,0.18)';ctx.font='400 26px "Times New Roman",Georgia';ctx.textAlign='center';
+      ctx.fillStyle='rgba(10,9,8,0.18)';ctx.font='400 26px Fraunces,Georgia';ctx.textAlign='center';
       ctx.fillText(`${s.score.p1}`,W/2-60,42);ctx.fillText(`${s.score.p2}`,W/2+60,42);
       raf=requestAnimationFrame(loop);
     };
@@ -788,8 +874,8 @@ function SnakeGame({ onBack }: { onBack: () => void }) {
       for(let y=0;y<=ROWS;y++){ctx.beginPath();ctx.moveTo(0,y*CELL);ctx.lineTo(COLS*CELL,y*CELL);ctx.stroke();}
       ctx.fillStyle='#B8974A';ctx.beginPath();ctx.arc(food.x*CELL+CELL/2,food.y*CELL+CELL/2,CELL/2-2,0,Math.PI*2);ctx.fill();
       snake.forEach((seg,i)=>{const a=1-(i/snake.length)*0.65;ctx.fillStyle=`rgba(10,9,8,${a})`;ctx.fillRect(seg.x*CELL+1,seg.y*CELL+1,CELL-2,CELL-2);});
-      ctx.fillStyle='rgba(10,9,8,0.22)';ctx.font='400 15px "Times New Roman",Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,10,22);
-      if(dead){ctx.fillStyle='rgba(248,245,240,0.88)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 26px "Times New Roman",Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 12px DM Sans';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
+      ctx.fillStyle='rgba(10,9,8,0.22)';ctx.font='400 15px Fraunces,Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,10,22);
+      if(dead){ctx.fillStyle='rgba(248,245,240,0.88)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 26px Fraunces,Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 12px DM Sans';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
       requestAnimationFrame(draw);
     };
     requestAnimationFrame(draw);
@@ -835,8 +921,8 @@ function TetrisGame({ onBack }: { onBack: () => void }) {
       let gy=py;while(valid(piece.shape,px,gy+1))gy++;
       piece.shape.forEach((row,r)=>row.forEach((v,c)=>{if(v&&gy+r>=0){ctx.fillStyle='rgba(10,9,8,0.07)';ctx.fillRect((px+c)*CELL+1,(gy+r)*CELL+1,CELL-2,CELL-2);}}));
       piece.shape.forEach((row,r)=>row.forEach((v,c)=>{if(v&&py+r>=0){ctx.fillStyle=piece.color;ctx.fillRect((px+c)*CELL+1,(py+r)*CELL+1,CELL-2,CELL-2);}}));
-      ctx.fillStyle='rgba(10,9,8,0.2)';ctx.font='400 13px "Times New Roman",Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,6,18);
-      if(dead){ctx.fillStyle='rgba(248,245,240,0.9)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 24px "Times New Roman",Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 11px sans-serif';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
+      ctx.fillStyle='rgba(10,9,8,0.2)';ctx.font='400 13px Fraunces,Georgia';ctx.textAlign='left';ctx.fillText(`${score}`,6,18);
+      if(dead){ctx.fillStyle='rgba(248,245,240,0.9)';ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);ctx.fillStyle='#0A0908';ctx.font='400 24px Fraunces,Georgia';ctx.textAlign='center';ctx.fillText('Game Over',COLS*CELL/2,ROWS*CELL/2-8);ctx.font='400 11px sans-serif';ctx.fillStyle='rgba(10,9,8,0.4)';ctx.fillText('Space to restart',COLS*CELL/2,ROWS*CELL/2+22);}
       requestAnimationFrame(draw);
     };
     requestAnimationFrame(draw);
@@ -850,7 +936,7 @@ function GameShell({ title, hint, onBack, children }: { title: string; hint: str
     <div className="section-padded game-shell-wrap" style={{ display:'flex',flexDirection:'column',alignItems:'center',padding:'100px 48px 80px' }}>
       <div style={{ width:'100%',maxWidth:'860px',display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'32px' }}>
         <button onClick={onBack} style={{ background:'none',border:'none',cursor:'pointer',fontFamily:"'DM Sans',sans-serif",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',color:'#6B5E52' }}>← Back</button>
-        <span style={{ fontFamily:'"Times New Roman", Times, serif',fontSize:'16px',color:'#0A0908',fontWeight:400 }}>{title}</span>
+        <span style={{ fontFamily:"'Fraunces', Georgia, serif",fontSize:'16px',color:'#0A0908',fontWeight:400 }}>{title}</span>
         <span style={{ width:'48px' }}/>
       </div>
       {children}
